@@ -1,0 +1,28 @@
+{
+  "overview": "A complete upgrade to the existing Anumaya Sansthan NGO website — adding a gallery admin panel powered by secure login and cloud image storage, four new content pages (Blog, Events, Media, Impact), a full admin dashboard for managing content, and UX improvements to the homepage and navigation.",
+  "features": [
+    "Gallery admin panel with secure login and cloud image uploads",
+    "Blog & Stories page with category filtering",
+    "Events & Drives page with registration forms",
+    "Media & Press page with news mentions and press releases",
+    "Impact page with animated counters, SDG alignment, and success stories",
+    "Admin dashboard for managing blog, events, gallery, and stories",
+    "Homepage trust signals bar and success stories section",
+    "Navigation updated with Resources dropdown",
+    "CSR/corporate partnership section on Get Involved page",
+    "Fully responsive, design-system compliant across all new pages"
+  ],
+  "category": "nonprofit",
+  "tags": [
+    "ngo",
+    "nonprofit",
+    "india",
+    "environment",
+    "gallery",
+    "cms",
+    "admin",
+    "blog",
+    "events"
+  ],
+  "last_updated": "2026-04-15T06:10:59.740Z"
+}

@@ -1,0 +1,293 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Playfair Display", serif;
+    --font-body: "DM Sans", sans-serif;
+    --font-mono: "Courier New", monospace;
+    --font-hindi: "Noto Sans Devanagari", sans-serif;
+    --radius: 0.625rem;
+
+    /* NGO Brand Tokens — mapped to OKLCH for system compatibility */
+    /* Forest Green #2E7D32 → oklch(0.46 0.14 145) */
+    --background: 0.98 0.008 90;
+    --foreground: 0.13 0.01 30;
+    --card: 1.0 0 0;
+    --card-foreground: 0.13 0.01 30;
+    --popover: 1.0 0 0;
+    --popover-foreground: 0.13 0.01 30;
+
+    /* Primary = Forest Green #2E7D32 */
+    --primary: 0.46 0.14 145;
+    --primary-foreground: 0.99 0 0;
+
+    /* Secondary = Light Green #A5D6A7 */
+    --secondary: 0.84 0.09 145;
+    --secondary-foreground: 0.25 0.05 145;
+
+    /* Muted = Soft Cream tones */
+    --muted: 0.96 0.008 90;
+    --muted-foreground: 0.45 0.01 30;
+
+    /* Accent = Earth Brown #6D4C41 */
+    --accent: 0.41 0.07 45;
+    --accent-foreground: 0.99 0 0;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.88 0.01 90;
+    --input: 0.88 0.01 90;
+    --ring: 0.46 0.14 145;
+
+    --chart-1: 0.46 0.14 145;
+    --chart-2: 0.84 0.09 145;
+    --chart-3: 0.41 0.07 45;
+    --chart-4: 0.65 0.18 145;
+    --chart-5: 0.3 0.09 145;
+
+    --sidebar: 0.98 0.008 90;
+    --sidebar-foreground: 0.13 0.01 30;
+    --sidebar-primary: 0.46 0.14 145;
+    --sidebar-primary-foreground: 0.99 0 0;
+    --sidebar-accent: 0.96 0.008 90;
+    --sidebar-accent-foreground: 0.25 0.05 145;
+    --sidebar-border: 0.88 0.01 90;
+    --sidebar-ring: 0.46 0.14 145;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "DM Sans", sans-serif;
+    background-color: #f9f6f0;
+  }
+}
+
+@layer utilities {
+  /* Font utilities */
+  .font-heading {
+    font-family: "Playfair Display", serif;
+  }
+  .font-body {
+    font-family: "DM Sans", sans-serif;
+  }
+  .font-hindi {
+    font-family: "Noto Sans Devanagari", sans-serif;
+  }
+
+  /* Transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Card hover lift */
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Glassmorphism navbar */
+  .glass-nav {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* Hero gradient overlay */
+  .hero-overlay {
+    background: linear-gradient(
+      135deg,
+      rgba(46, 125, 50, 0.85),
+      rgba(109, 76, 65, 0.6)
+    );
+  }
+
+  /* Text shadow for hero */
+  .text-shadow {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* NGO section divider */
+  .section-divider {
+    height: 80px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Admin sidebar */
+  .admin-sidebar {
+    background-color: oklch(var(--sidebar));
+    border-right: 1px solid oklch(var(--sidebar-border));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Admin nav item */
+  .admin-nav-item {
+    color: oklch(var(--sidebar-foreground));
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+  }
+  .admin-nav-item:hover {
+    background-color: oklch(var(--muted));
+    color: oklch(var(--sidebar-primary));
+  }
+  .admin-nav-item.active {
+    background-color: oklch(var(--muted));
+    border-left-color: oklch(var(--sidebar-primary));
+    color: oklch(var(--sidebar-primary));
+    font-weight: 600;
+  }
+
+  /* Image upload zone */
+  .upload-zone {
+    border: 2px dashed oklch(var(--border));
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    background-color: oklch(var(--muted) / 0.3);
+  }
+  .upload-zone.drag-over {
+    border-color: oklch(var(--primary));
+    background-color: oklch(var(--primary) / 0.05);
+  }
+
+  /* Data table header */
+  .admin-table-header {
+    background-color: oklch(var(--muted));
+    font-weight: 600;
+    color: oklch(var(--foreground));
+  }
+
+  /* Blog card */
+  .blog-card {
+    background: oklch(var(--card));
+    border: 1px solid oklch(var(--border));
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .blog-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+
+  /* Impact counter animation */
+  .impact-number {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  /* Success stories carousel */
+  .stories-carousel {
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+  .stories-carousel-item {
+    scroll-snap-align: center;
+    flex-shrink: 0;
+  }
+
+  /* Trust signals bar */
+  .trust-signals {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background-color: oklch(var(--muted));
+    border-radius: 24px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: oklch(var(--foreground));
+  }
+}
+
+/* Fade-in-up animation */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-1 {
+  animation: fadeInUp 0.6s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-2 {
+  animation: fadeInUp 0.6s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-3 {
+  animation: fadeInUp 0.6s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-4 {
+  animation: fadeInUp 0.6s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+/* CountUp number animation */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-count-up {
+  animation: countUp 0.8s ease-out forwards;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-fade-in-up-delay-1,
+  .animate-fade-in-up-delay-2,
+  .animate-fade-in-up-delay-3,
+  .animate-fade-in-up-delay-4,
+  .animate-count-up {
+    animation: none;
+    opacity: 1;
+  }
+  .card-hover:hover {
+    transform: none;
+  }
+}

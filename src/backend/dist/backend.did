@@ -1,0 +1,183 @@
+type VolunteerApplication = 
+ record {
+   availability: text;
+   city: text;
+   email: text;
+   id: nat;
+   name: text;
+   phone: text;
+   skills: text;
+   timestamp: int;
+ };
+type SuccessStory = 
+ record {
+   beneficiaryName: text;
+   date: text;
+   id: nat;
+   imageUrl: text;
+   location: text;
+   storyText: text;
+   title: text;
+ };
+type PartnerInquiry = 
+ record {
+   contactPerson: text;
+   email: text;
+   id: nat;
+   organization: text;
+   partnershipNature: text;
+   timestamp: int;
+ };
+type NewsletterSignup = 
+ record {
+   email: text;
+   id: nat;
+   timestamp: int;
+ };
+type InternshipApplication = 
+ record {
+   area: text;
+   city: text;
+   email: text;
+   id: nat;
+   name: text;
+   phone: text;
+   timestamp: int;
+ };
+type GalleryImage = 
+ record {
+   category: text;
+   date: text;
+   description: text;
+   id: nat;
+   imageKey: text;
+   location: text;
+   title: text;
+   uploadedAt: int;
+ };
+type EventRegistration = 
+ record {
+   email: text;
+   eventId: nat;
+   id: nat;
+   name: text;
+   phone: text;
+   timestamp: int;
+ };
+type Event = 
+ record {
+   category: text;
+   date: text;
+   description: text;
+   id: nat;
+   imageUrl: text;
+   location: text;
+   registrationsOpen: bool;
+   status: text;
+   title: text;
+ };
+type ContactSubmission = 
+ record {
+   email: text;
+   id: nat;
+   message: text;
+   name: text;
+   subject: text;
+   timestamp: int;
+ };
+type BlogPost = 
+ record {
+   author: text;
+   category: text;
+   content: text;
+   date: text;
+   excerpt: text;
+   id: nat;
+   imageUrl: text;
+   published: bool;
+   title: text;
+ };
+type AdminStats = 
+ record {
+   blogCount: nat;
+   eventCount: nat;
+   galleryCount: nat;
+   storyCount: nat;
+   volunteerCount: nat;
+ };
+service : {
+  addBlogPost: (title: text, excerpt: text, content: text, category: 
+   text, date: text, imageUrl: text, author: text) -> (nat);
+  addEvent: (title: text, description: text, date: text, location: text,
+   category: text, imageUrl: text, status: text, registrationsOpen: bool) ->
+   (nat);
+  addGalleryImage: (title: text, description: text, category: text, date:
+   text, location: text, imageKey: text) -> (nat);
+  addSuccessStory: (title: text, beneficiaryName: text, location: text,
+   storyText: text, imageUrl: text, date: text) -> (nat);
+  applyInternship: (name: text, email: text, phone: text, city: text, area:
+   text) -> (nat);
+  applyVolunteer: (name: text, email: text, phone: text, city: text, skills:
+   text, availability: text) -> (nat);
+  deleteBlogPost: (id: nat) -> (bool);
+  deleteEvent: (id: nat) -> (bool);
+  deleteGalleryImage: (id: nat) -> (bool);
+  deleteSuccessStory: (id: nat) -> (bool);
+  getAdminSettings: () ->
+   (record {
+      adminPrincipals: vec principal;
+      chairpersonPhotoKey: opt text;
+      razorpayKeyId: opt text;
+      treasurerPhotoKey: opt text;
+    }) query;
+  getAdminStats: () -> (AdminStats) query;
+  getAllBlogPosts: () -> (vec BlogPost) query;
+  getBlogPostsByCategory: (category: text) -> (vec BlogPost) query;
+  getContactSubmissions: () -> (vec ContactSubmission) query;
+  getEventRegistrations: (eventId: nat) -> (vec EventRegistration) query;
+  getGalleryImagesByCategory: (category: text) -> (vec GalleryImage) query;
+  getInternshipApplications: () -> (vec InternshipApplication) query;
+  getNewsletterSignups: () -> (vec NewsletterSignup) query;
+  getPartnerInquiries: () -> (vec PartnerInquiry) query;
+  getPastEvents: () -> (vec Event) query;
+  getUpcomingEvents: () -> (vec Event) query;
+  getVolunteerApplications: () -> (vec VolunteerApplication) query;
+  listBlogPosts: () -> (vec BlogPost) query;
+  listEvents: () -> (vec Event) query;
+  listGalleryImages: () -> (vec GalleryImage) query;
+  listSuccessStories: () -> (vec SuccessStory) query;
+  registerForEvent: (eventId: nat, name: text, email: text, phone: text) ->
+   (nat);
+  submitContact: (name: text, email: text, subject: text, message: text) ->
+   (nat);
+  submitPartnerInquiry: (organization: text, contactPerson: text, email:
+   text, partnershipNature: text) -> (nat);
+  subscribeNewsletter: (email: text) -> (variant {
+                                           err: text;
+                                           ok: nat;
+                                         });
+  updateAdminPrincipals: (principals: vec principal) ->
+   (record {
+      err: opt text;
+      ok: bool;
+    });
+  updateBlogPost: (id: nat, title: text, excerpt: text, content: text,
+   category: text, date: text, imageUrl: text, author: text, published:
+   bool) -> (bool);
+  updateEvent: (id: nat, title: text, description: text, date: text,
+   location: text, category: text, imageUrl: text, status: text,
+   registrationsOpen: bool) -> (bool);
+  updateGalleryImage: (id: nat, title: text, description: text, category:
+   text, date: text, location: text) -> (bool);
+  updateRazorpayKeyId: (keyId: text) -> (record {
+                                           err: opt text;
+                                           ok: bool;
+                                         });
+  updateSuccessStory: (id: nat, title: text, beneficiaryName: text, location:
+   text, storyText: text, imageUrl: text, date: text) -> (bool);
+  updateTeamPhotos: (chairpersonKey: opt text, treasurerKey: opt text) ->
+   (record {
+      err: opt text;
+      ok: bool;
+    });
+}
