@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createActor } from "../backend";
 import type { Event, backendInterface } from "../backend.d.ts";
 import Layout from "../components/Layout";
+import SEO from "../components/SEO";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -21,7 +22,6 @@ function categoryClass(category: string): string {
       "bg-forest-green-100 text-forest-green-800 border-forest-green-300",
     Workshop: "bg-amber-100 text-amber-800 border-amber-300",
     "Soil Conservation": "bg-amber-100 text-amber-800 border-amber-300",
-    "Waste Management": "bg-teal-100 text-teal-800 border-teal-300",
     Community: "bg-blue-100 text-blue-800 border-blue-300",
   };
   return map[category] ?? "bg-muted text-foreground border-border";
@@ -45,11 +45,11 @@ function formatDate(dateStr: string): string {
 const FALLBACK_UPCOMING: Event[] = [
   {
     id: BigInt(1),
-    title: "Bihar Mega Plantation Drive 2026",
+    title: "Plantation Drive — Vaishali District",
     description:
-      "Join thousands of volunteers for a large-scale plantation drive across 10 panchayats near Patna. We aim to plant 2,000 native saplings in a single day with community participation at every step.",
+      "Join our upcoming plantation drive in Vaishali, where we aim to plant 50 native saplings with community participation. 30 volunteers will work alongside local panchayat members to restore green cover along degraded roadsides.",
     date: "2026-06-15",
-    location: "Phulwari Sharif, Patna, Bihar",
+    location: "Hajipur, Vaishali, Bihar",
     category: "Plantation",
     imageUrl:
       "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&q=80",
@@ -58,11 +58,11 @@ const FALLBACK_UPCOMING: Event[] = [
   },
   {
     id: BigInt(2),
-    title: "Soil Health Awareness Workshop",
+    title: "Soil Health Awareness Workshop — Nalanda",
     description:
-      "A hands-on workshop for farmers covering contour bunding, check-dam construction, and organic farming techniques. Expert agronomists from Bihar Agricultural University will lead sessions.",
+      "A hands-on workshop for 20 local farmers covering basic contour bunding, organic soil amendments, and erosion-prevention techniques. Guided by our field team with practical demonstrations on farmland near Nalanda.",
     date: "2026-06-28",
-    location: "Nalanda Agricultural College, Nalanda",
+    location: "Nalanda, Bihar",
     category: "Workshop",
     imageUrl:
       "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80",
@@ -71,14 +71,14 @@ const FALLBACK_UPCOMING: Event[] = [
   },
   {
     id: BigInt(3),
-    title: "Community Waste Segregation Drive",
+    title: "Community Planning Meeting — Arwal",
     description:
-      "Train your village as an Eco-Champion hub. Door-to-door waste collection demo, segregation awareness, and composting setup across 5 villages in Vaishali district.",
+      "A participatory planning session bringing together panchayat leaders and village representatives from Arwal to co-design our next phase of community development activities and identify priority areas for support.",
     date: "2026-07-10",
-    location: "Hajipur, Vaishali, Bihar",
-    category: "Waste Management",
+    location: "Arwal, Bihar",
+    category: "Community",
     imageUrl:
-      "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&q=80",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80",
     status: "upcoming",
     registrationsOpen: false,
   },
@@ -87,11 +87,11 @@ const FALLBACK_UPCOMING: Event[] = [
 const FALLBACK_PAST: Event[] = [
   {
     id: BigInt(101),
-    title: "Green Bihar Tree Mela 2025",
+    title: "Tree Plantation Drive — Patna Schools",
     description:
-      "A two-day tree mela that brought together 1,200 volunteers and planted 3,500 saplings across Muzaffarpur. Local schools, colleges, and panchayats participated in this landmark event.",
+      "Students and teachers from three schools near Phulwari, Patna joined hands to plant 100 trees on school grounds and nearby vacant land. 40 participants — students, parents, and NGO volunteers — made this a memorable first drive.",
     date: "2025-09-20",
-    location: "Muzaffarpur, Bihar",
+    location: "Phulwari Sharif, Patna, Bihar",
     category: "Plantation",
     imageUrl:
       "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=600&q=80",
@@ -100,11 +100,11 @@ const FALLBACK_PAST: Event[] = [
   },
   {
     id: BigInt(102),
-    title: "Farmer Training on Soil Conservation",
+    title: "Soil Erosion Assessment — Jahanabad",
     description:
-      "120 farmers trained over 3 days on scientific erosion control and sustainable land management methods. Supported by government extension officers and NGO field staff.",
+      "15 farmers from Jahanabad district participated in a field training on identifying erosion-prone slopes and implementing basic bunding techniques. Our team provided practical guidance and follow-up support materials.",
     date: "2025-11-05",
-    location: "Darbhanga, Bihar",
+    location: "Jahanabad, Bihar",
     category: "Soil Conservation",
     imageUrl:
       "https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=600&q=80",
@@ -113,25 +113,12 @@ const FALLBACK_PAST: Event[] = [
   },
   {
     id: BigInt(103),
-    title: "Clean Village Challenge 2025",
+    title: "Community Awareness Drive — Ara (Bhojpur)",
     description:
-      "30 panchayats competed to achieve zero open-defecation and zero open-burning over a 30-day period. Anumaya Sansthan facilitated training, monitoring, and prize distribution.",
+      "MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN held a community awareness session in Ara connecting village leaders, youth groups, and panchayat members around the importance of environmental conservation and community participation.",
     date: "2025-12-15",
-    location: "Sitamarhi, Bihar",
+    location: "Ara, Bhojpur, Bihar",
     category: "Community",
-    imageUrl:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80",
-    status: "past",
-    registrationsOpen: false,
-  },
-  {
-    id: BigInt(104),
-    title: "Eco-Champion Youth Camp",
-    description:
-      "A 2-day camp for 80 young leaders from across Bihar. Sessions on climate change, waste management, and community organizing. Participants took pledges and launched home village projects.",
-    date: "2025-08-18",
-    location: "Patna, Bihar",
-    category: "Workshop",
     imageUrl:
       "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80",
     status: "past",
@@ -605,6 +592,10 @@ export default function Events() {
       pageTitle="Events & Drives"
       pageDescription="Join us for plantation drives, workshops, and community events across Bihar"
     >
+      <SEO
+        title="Events"
+        description="Stay updated on MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN's upcoming events — plantation drives, soil conservation workshops, and community programs across Bihar."
+      />
       {toast && <Toast message={toast} onDismiss={() => setToast(null)} />}
 
       {/* ── Upcoming Events ─────────────────────────────────────────────── */}
@@ -723,8 +714,9 @@ export default function Events() {
             Don't miss the next drive
           </h3>
           <p className="text-white/75 text-sm mb-6">
-            Follow Anumaya Sansthan on social media or subscribe to our
-            newsletter to get event updates directly to your inbox.
+            Follow MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN on social media
+            or subscribe to our newsletter to get event updates directly to your
+            inbox.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <a

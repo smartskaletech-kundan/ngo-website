@@ -1,13 +1,15 @@
 import { useState } from "react";
 import Layout from "../components/Layout";
+import SEO from "../components/SEO";
 
 interface FormState {
   name: string;
   email: string;
   phone: string;
   city: string;
-  skills: string;
+  interest: string;
   availability: string;
+  message: string;
 }
 
 const initialForm: FormState = {
@@ -15,30 +17,34 @@ const initialForm: FormState = {
   email: "",
   phone: "",
   city: "",
-  skills: "",
+  interest: "",
   availability: "",
+  message: "",
 };
 
 const csrPackages = [
   {
     icon: "🌳",
     title: "Plantation Drive CSR Package",
-    description: "Fund tree plantation for 1,000 trees",
-    amount: "₹1,50,000",
-    benefit: "Impact certificate provided",
-  },
-  {
-    icon: "♻️",
-    title: "Village Waste Management CSR",
-    description: "Fund waste management for 1 village for 1 year",
-    amount: "₹2,50,000",
-    benefit: "Monthly utilization reports",
+    description:
+      "Fund a community plantation drive — 100 native saplings planted across one panchayat area",
+    amount: "₹75,000",
+    benefit: "Impact certificate + field visit",
   },
   {
     icon: "🌾",
     title: "Soil Conservation CSR",
-    description: "Fund soil conservation for 50 acres",
-    amount: "₹3,00,000",
+    description:
+      "Support soil erosion control for 10 acres of degraded farmland in Bihar",
+    amount: "₹1,20,000",
+    benefit: "Quarterly utilization reports",
+  },
+  {
+    icon: "🤝",
+    title: "Community Development CSR",
+    description:
+      "Fund awareness programs and capacity building for 2 panchayats across one district",
+    amount: "₹90,000",
     benefit: "Site visit + commemorative plaque",
   },
 ];
@@ -51,10 +57,6 @@ const csrCategories = [
   {
     clause: "Schedule VII, Clause (x)",
     label: "Rural Development",
-  },
-  {
-    clause: "Schedule VII, Clause (ii)",
-    label: "Promotion of Education",
   },
 ];
 
@@ -98,8 +100,12 @@ export default function GetInvolved() {
   return (
     <Layout
       pageTitle="Get Involved"
-      pageDescription="Volunteer, partner, or intern with Anumaya Sansthan to create real change in Bihar."
+      pageDescription="Volunteer, partner, or intern with MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN to create real change in Bihar."
     >
+      <SEO
+        title="Get Involved"
+        description="Join MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN as a volunteer, CSR partner, or donor. Make a real difference in communities across 6 Bihar districts."
+      />
       {submitted && (
         <div
           className="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-forest-green-700 text-white px-6 py-3 rounded-full shadow-card font-semibold text-sm"
@@ -123,7 +129,9 @@ export default function GetInvolved() {
               Corporate Social Responsibility
             </h2>
             <p className="text-foreground/65 text-base max-w-xl mx-auto">
-              Partner with Anumaya Sansthan for your CSR goals
+              Partner with MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN for your
+              CSR goals across Plantation Drives, Soil Erosion Control, and
+              Community Development
             </p>
           </div>
 
@@ -137,8 +145,10 @@ export default function GetInvolved() {
                 <p className="text-foreground/75 text-sm leading-relaxed mb-6">
                   Under Section 135 of the Companies Act, 2013, Indian companies
                   are mandated to spend 2% of average net profits on CSR
-                  activities. Anumaya Sansthan is the ideal partner for your
-                  company's environmental CSR commitments.
+                  activities. MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN is a
+                  registered NGO (S000071/23-24) working across 6 Bihar
+                  districts — an ideal partner for your company's environmental
+                  and rural development CSR commitments.
                 </p>
 
                 <h4 className="font-semibold text-earth-brown text-sm uppercase tracking-wide mb-3">
@@ -174,7 +184,7 @@ export default function GetInvolved() {
                 </div>
 
                 <a
-                  href="mailto:contact@anumayasansthan.org?subject=CSR Partnership Inquiry"
+                  href="mailto:nirmalkumarsingh9625@gmail.com?subject=CSR Partnership Inquiry"
                   data-ocid="get_involved.csr_email_button"
                   className="mt-6 inline-flex items-center gap-2 bg-earth-brown text-white px-6 py-3 rounded-full font-semibold hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-card"
                 >
@@ -241,7 +251,8 @@ export default function GetInvolved() {
               Volunteer With Us
             </h2>
             <p className="text-foreground/70">
-              Join hands with our field teams and make a direct impact.
+              Join hands with our field teams and make a direct impact in
+              Bihar's 6 districts.
             </p>
           </div>
           <div className="bg-card rounded-card shadow-card p-8">
@@ -320,7 +331,7 @@ export default function GetInvolved() {
                     className="block text-sm font-medium mb-1"
                     htmlFor="vol-city"
                   >
-                    City
+                    City / District
                   </label>
                   <input
                     id="vol-city"
@@ -338,28 +349,36 @@ export default function GetInvolved() {
                   />
                 </div>
               </div>
+
+              {/* Area of Interest */}
               <div>
                 <label
                   className="block text-sm font-medium mb-1"
-                  htmlFor="vol-skills"
+                  htmlFor="vol-interest"
                 >
-                  Skills &amp; Expertise
+                  Area of Interest
                 </label>
-                <input
-                  id="vol-skills"
-                  type="text"
-                  value={volunteerForm.skills}
+                <select
+                  id="vol-interest"
+                  value={volunteerForm.interest}
                   onChange={(e) =>
                     setVolunteerForm({
                       ...volunteerForm,
-                      skills: e.target.value,
+                      interest: e.target.value,
                     })
                   }
-                  data-ocid="get_involved.volunteer_skills_input"
+                  data-ocid="get_involved.volunteer_interest_select"
                   className="w-full px-4 py-2.5 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-green-500 bg-background"
-                  placeholder="e.g., Agriculture, Teaching, Photography"
-                />
+                >
+                  <option value="">Select area of interest</option>
+                  <option value="plantation">Plantation Drives</option>
+                  <option value="soil">Soil Erosion Control</option>
+                  <option value="community">Community Development</option>
+                  <option value="general">General Support</option>
+                </select>
               </div>
+
+              {/* Availability */}
               <div>
                 <label
                   className="block text-sm font-medium mb-1"
@@ -386,6 +405,31 @@ export default function GetInvolved() {
                   <option value="remote">Remote only</option>
                 </select>
               </div>
+
+              {/* Message */}
+              <div>
+                <label
+                  className="block text-sm font-medium mb-1"
+                  htmlFor="vol-message"
+                >
+                  Message (optional)
+                </label>
+                <textarea
+                  id="vol-message"
+                  rows={3}
+                  value={volunteerForm.message}
+                  onChange={(e) =>
+                    setVolunteerForm({
+                      ...volunteerForm,
+                      message: e.target.value,
+                    })
+                  }
+                  data-ocid="get_involved.volunteer_message_textarea"
+                  className="w-full px-4 py-2.5 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-green-500 bg-background resize-none"
+                  placeholder="Tell us about yourself or why you'd like to volunteer..."
+                />
+              </div>
+
               <button
                 type="submit"
                 data-ocid="get_involved.volunteer_submit_button"
@@ -410,8 +454,8 @@ export default function GetInvolved() {
               Partner With Us
             </h2>
             <p className="text-foreground/70">
-              Corporate and institutional partnerships for scaled impact in
-              Bihar.
+              Corporate and institutional partnerships for scaled impact across
+              Bihar's 6 districts.
             </p>
           </div>
           <div className="bg-card rounded-card shadow-card p-8">
@@ -523,8 +567,9 @@ export default function GetInvolved() {
             Internship Program
           </h2>
           <p className="text-white/80 mb-6">
-            Join us as an intern and work on real environmental projects in
-            Bihar. Gain hands-on experience in the field.
+            Join us as an intern and work on real environmental and community
+            projects across Bihar's 6 districts. Gain hands-on experience in the
+            field.
           </p>
           <div className="flex flex-wrap justify-center gap-3 mb-8">
             {[

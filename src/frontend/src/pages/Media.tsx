@@ -1,5 +1,6 @@
 import { Download, ExternalLink, Instagram, Mail } from "lucide-react";
 import Layout from "../components/Layout";
+import SEO from "../components/SEO";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -9,7 +10,8 @@ const NEWS_ITEMS = [
     publication: "Bihar Times",
     initials: "BT",
     bgColor: "bg-forest-green-700",
-    headline: "Anumaya Sansthan Plants 5,000 Trees in Nalanda District",
+    headline:
+      "MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN Plants 5,000 Trees in Nalanda District",
     date: "December 2024",
     excerpt:
       "The Patna-based NGO completed its largest plantation drive yet, covering 12 villages and involving over 400 community volunteers in a single weekend.",
@@ -31,7 +33,8 @@ const NEWS_ITEMS = [
     publication: "Bihar Gazette",
     initials: "BG",
     bgColor: "bg-forest-green-500",
-    headline: "Anumaya Sansthan Receives NGO Excellence Recognition",
+    headline:
+      "MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN Receives NGO Excellence Recognition",
     date: "October 2024",
     excerpt:
       "The environmental NGO was honored for its outstanding contributions to soil conservation and rural livelihoods at the Bihar Social Development Summit.",
@@ -45,7 +48,7 @@ const NEWS_ITEMS = [
     headline: "Soil Conservation Success Story from Bihar",
     date: "September 2024",
     excerpt:
-      "Anumaya Sansthan's work in Muzaffarpur has conserved over 167 acres of eroding farmland, helping farmers recover productivity and protect their livelihoods.",
+      "MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN's work in Muzaffarpur has conserved over 167 acres of eroding farmland, helping farmers recover productivity and protect their livelihoods.",
     href: "#",
   },
   {
@@ -56,7 +59,7 @@ const NEWS_ITEMS = [
     headline: "NGOs Lead Bihar's Monsoon Plantation Push in 2024",
     date: "August 2024",
     excerpt:
-      "A coalition of Bihar NGOs, led by Anumaya Sansthan, planted over 2,000 native-species saplings across flood-prone areas ahead of the monsoon season.",
+      "A coalition of Bihar NGOs, led by MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN, planted over 2,000 native-species saplings across flood-prone areas ahead of the monsoon season.",
     href: "#",
   },
   {
@@ -85,7 +88,7 @@ const PRESS_RELEASES = [
     date: "March 2024",
     title: "Launch of Eco-Champion Program",
     excerpt:
-      "Anumaya Sansthan announces the Eco-Champion volunteer training program, designed to build a cadre of environmental stewards across rural Bihar.",
+      "MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN announces the Eco-Champion volunteer training program, designed to build a cadre of environmental stewards across rural Bihar.",
   },
   {
     id: 3,
@@ -306,8 +309,12 @@ export default function Media() {
   return (
     <Layout
       pageTitle="In the News"
-      pageDescription="Media coverage, press releases, and social highlights from Anumaya Sansthan"
+      pageDescription="Media coverage, press releases, and social highlights from MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN"
     >
+      <SEO
+        title="Media"
+        description="News, press coverage, and media resources about MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN's work in Bihar."
+      />
       {/* ── Section 1: News Mentions ─────────────────────────────────────── */}
       <section
         className="py-16 bg-background"
@@ -327,8 +334,8 @@ export default function Media() {
               Media Coverage
             </h2>
             <p className="font-body text-muted-foreground mt-3 max-w-xl mx-auto text-base">
-              Stories about Anumaya Sansthan's work, as covered by leading
-              publications across India.
+              Stories about MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN's work,
+              as covered by leading publications across India.
             </p>
           </div>
 
@@ -366,7 +373,8 @@ export default function Media() {
               Press Releases
             </h2>
             <p className="font-body text-muted-foreground mt-3 text-base">
-              Official announcements and reports from Anumaya Sansthan.
+              Official announcements and reports from MAYA SAMAJIK UTTHAN EVAM
+              PARAMARSH SANSTHAN.
             </p>
           </div>
 
@@ -481,18 +489,20 @@ export default function Media() {
           </p>
 
           <a
-            href="mailto:contact@anumayasansthan.org"
+            href="mailto:nirmalkumarsingh9625@gmail.com"
             className="inline-flex items-center gap-2.5 bg-primary text-primary-foreground font-body font-semibold px-8 py-3.5 rounded-full hover:bg-primary/90 transition-smooth shadow-md text-base"
             data-ocid="media.contact_email_button"
           >
             <Mail className="w-5 h-5" aria-hidden="true" />
-            contact@anumayasansthan.org
+            nirmalkumarsingh9625@gmail.com
           </a>
 
           <p className="font-body text-muted-foreground text-sm mt-6">
             You can also write to us at{" "}
             <strong className="text-foreground font-medium">
-              Anumaya Sansthan, Patna, Bihar, India
+              MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN, ANUPURI, VEER BASAWAN
+              SINGH NAGAR, NEAR PATLIPUTRA RAILWAY STATION, B.V. College,
+              Phulwari, Patna-800014, Bihar, India
             </strong>
           </p>
         </div>

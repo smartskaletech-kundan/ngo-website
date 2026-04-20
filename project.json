@@ -1,28 +1,28 @@
 {
-  "overview": "A complete upgrade to the existing Anumaya Sansthan NGO website — adding a gallery admin panel powered by secure login and cloud image storage, four new content pages (Blog, Events, Media, Impact), a full admin dashboard for managing content, and UX improvements to the homepage and navigation.",
+  "overview": "A comprehensive, production-ready website for MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN, an Indian environmental NGO. Features a premium green-themed design, 16+ pages, animated impact counters, program detail pages, volunteer registration, redesigned footer, and an enhanced dropdown navigation bar.",
   "features": [
-    "Gallery admin panel with secure login and cloud image uploads",
-    "Blog & Stories page with category filtering",
-    "Events & Drives page with registration forms",
-    "Media & Press page with news mentions and press releases",
-    "Impact page with animated counters, SDG alignment, and success stories",
-    "Admin dashboard for managing blog, events, gallery, and stories",
-    "Homepage trust signals bar and success stories section",
-    "Navigation updated with Resources dropdown",
-    "CSR/corporate partnership section on Get Involved page",
-    "Fully responsive, design-system compliant across all new pages"
+    "Animated impact statistics strip with scroll-triggered counters",
+    "Enhanced navbar with dropdown menus and mobile hamburger",
+    "Social icons (YouTube, Instagram, Facebook) in navbar",
+    "Redesigned 4-column footer with newsletter signup and dark green theme",
+    "6 individual program detail pages (tree plantation, women empowerment, education, water conservation, rural livelihoods, health camps)",
+    "Volunteer With Us page with hero, benefit cards, and registration form",
+    "How It Works section linked to volunteer page",
+    "16+ routed pages with React + TanStack Router",
+    "Admin panel with session-based login at hidden URL",
+    "Razorpay payment integration on Donate page",
+    "Premium NGO aesthetic with Playfair Display headings and DM Sans body"
   ],
   "category": "nonprofit",
   "tags": [
     "ngo",
     "nonprofit",
+    "environmental",
     "india",
-    "environment",
-    "gallery",
-    "cms",
-    "admin",
-    "blog",
-    "events"
+    "volunteer",
+    "donation",
+    "community",
+    "green"
   ],
-  "last_updated": "2026-04-15T06:10:59.740Z"
+  "last_updated": "2026-04-18T04:56:20.440Z"
 }

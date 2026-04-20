@@ -1,4 +1,5 @@
 import Layout from "../components/Layout";
+import SEO from "../components/SEO";
 
 const financials = [
   {
@@ -11,13 +12,20 @@ const financials = [
 
 const utilization = [
   {
-    category: "Plantation Programs",
-    percent: 45,
+    category: "Plantation Drives",
+    percent: 40,
     color: "bg-forest-green-700",
   },
-  { category: "Soil Conservation", percent: 25, color: "bg-forest-green-500" },
-  { category: "Waste Management", percent: 20, color: "bg-light-green" },
-  { category: "Admin & Operations", percent: 10, color: "bg-muted-foreground" },
+  {
+    category: "Soil Erosion Control",
+    percent: 35,
+    color: "bg-forest-green-500",
+  },
+  {
+    category: "Community Development",
+    percent: 25,
+    color: "bg-earth-brown",
+  },
 ];
 
 export default function Transparency() {
@@ -26,6 +34,10 @@ export default function Transparency() {
       pageTitle="Our Commitment to Transparency"
       pageDescription="We believe in full accountability to our donors, communities, and the public."
     >
+      <SEO
+        title="Transparency"
+        description="MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN's financial reports, annual statements, and impact disclosures across 6 Bihar districts. We are committed to full transparency."
+      />
       {/* Annual Reports */}
       <section
         className="py-16 md:py-20 bg-cream"
@@ -45,7 +57,7 @@ export default function Transparency() {
                   Annual Report 2023–24
                 </p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Full program & financial summary
+                  Full program &amp; financial summary
                 </p>
               </div>
               <button
@@ -114,9 +126,13 @@ export default function Transparency() {
         data-ocid="transparency.utilization_section"
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <h2 className="font-heading text-2xl font-bold text-forest-green-900 mb-6">
+          <h2 className="font-heading text-2xl font-bold text-forest-green-900 mb-2">
             📊 Fund Utilization
           </h2>
+          <p className="text-foreground/65 text-sm mb-6">
+            Breakdown across our 3 core areas of work in 6 Bihar districts (FY
+            2023–24)
+          </p>
           <div className="bg-card rounded-card shadow-card p-6 space-y-5">
             {utilization.map((item) => (
               <div
@@ -140,6 +156,11 @@ export default function Transparency() {
               </div>
             ))}
           </div>
+          <p className="text-xs text-muted-foreground mt-4">
+            Note: We are an early-stage NGO (registered June 2023). These
+            figures reflect our first year of operations across Patna, Ara
+            (Bhojpur), Vaishali, Nalanda, Jahanabad, and Arwal.
+          </p>
         </div>
       </section>
 
@@ -154,9 +175,10 @@ export default function Transparency() {
           </h2>
           <div className="bg-card rounded-card shadow-card p-6">
             <p className="text-foreground/75 leading-relaxed mb-4">
-              Anumaya Sansthan is registered under Section 12A and eligible for
-              80G income tax exemption. All donors who contribute are eligible
-              to claim a tax deduction on their donations.
+              MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN is registered under
+              Section 12A and eligible for 80G income tax exemption. All donors
+              who contribute are eligible to claim a tax deduction on their
+              donations.
             </p>
             <ul className="space-y-2 text-sm text-foreground/70">
               <li>✅ Registered under Section 12A of the Income Tax Act</li>
@@ -165,10 +187,10 @@ export default function Transparency() {
               <li>
                 ✅ Email:{" "}
                 <a
-                  href="mailto:contact@anumayasansthan.org"
+                  href="mailto:nirmalkumarsingh9625@gmail.com"
                   className="text-forest-green-700 underline"
                 >
-                  contact@anumayasansthan.org
+                  nirmalkumarsingh9625@gmail.com
                 </a>{" "}
                 for certificates
               </li>
@@ -193,7 +215,7 @@ export default function Transparency() {
             <div className="text-center mt-2">
               <div className="text-5xl mb-4">🏛️</div>
               <h3 className="font-heading text-2xl font-bold text-forest-green-900">
-                Anumaya Sansthan
+                MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN
               </h3>
               <p className="font-hindi text-forest-green-700 text-base mt-1 mb-4">
                 माया सामाजिक उत्थान एवं परामर्श संस्थान

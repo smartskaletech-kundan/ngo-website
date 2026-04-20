@@ -85,6 +85,21 @@ export const Event = IDL.Record({
   'category' : IDL.Text,
   'location' : IDL.Text,
 });
+export const ProgramContent = IDL.Record({
+  'id' : IDL.Text,
+  'stat1Label' : IDL.Text,
+  'tagline' : IDL.Text,
+  'stat2Value' : IDL.Text,
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+  'heroImage' : IDL.Text,
+  'stat2Label' : IDL.Text,
+  'updatedAt' : IDL.Int,
+  'stat3Value' : IDL.Text,
+  'howItWorks' : IDL.Vec(IDL.Text),
+  'stat1Value' : IDL.Text,
+  'stat3Label' : IDL.Text,
+});
 export const VolunteerApplication = IDL.Record({
   'id' : IDL.Nat,
   'city' : IDL.Text,
@@ -103,6 +118,7 @@ export const SuccessStory = IDL.Record({
   'date' : IDL.Text,
   'imageUrl' : IDL.Text,
   'location' : IDL.Text,
+  'program' : IDL.Text,
 });
 
 export const idlService = IDL.Service({
@@ -131,7 +147,7 @@ export const idlService = IDL.Service({
       [],
     ),
   'addSuccessStory' : IDL.Func(
-      [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
       [IDL.Nat],
       [],
     ),
@@ -157,6 +173,17 @@ export const idlService = IDL.Service({
           'adminPrincipals' : IDL.Vec(IDL.Principal),
           'razorpayKeyId' : IDL.Opt(IDL.Text),
           'treasurerPhotoKey' : IDL.Opt(IDL.Text),
+          'secretaryPhotoKey' : IDL.Opt(IDL.Text),
+          'ngoStats' : IDL.Record({
+            'districtsCovered' : IDL.Text,
+            'villagesCovered' : IDL.Text,
+            'volunteers' : IDL.Text,
+            'treesPlanted' : IDL.Text,
+            'acresConserved' : IDL.Text,
+            'panchayatsCovered' : IDL.Text,
+            'householdsCovered' : IDL.Text,
+            'farmersTrained' : IDL.Text,
+          }),
         }),
       ],
       ['query'],
@@ -191,6 +218,11 @@ export const idlService = IDL.Service({
   'getNewsletterSignups' : IDL.Func([], [IDL.Vec(NewsletterSignup)], ['query']),
   'getPartnerInquiries' : IDL.Func([], [IDL.Vec(PartnerInquiry)], ['query']),
   'getPastEvents' : IDL.Func([], [IDL.Vec(Event)], ['query']),
+  'getProgramContent' : IDL.Func(
+      [IDL.Text],
+      [IDL.Opt(ProgramContent)],
+      ['query'],
+    ),
   'getUpcomingEvents' : IDL.Func([], [IDL.Vec(Event)], ['query']),
   'getVolunteerApplications' : IDL.Func(
       [],
@@ -200,7 +232,13 @@ export const idlService = IDL.Service({
   'listBlogPosts' : IDL.Func([], [IDL.Vec(BlogPost)], ['query']),
   'listEvents' : IDL.Func([], [IDL.Vec(Event)], ['query']),
   'listGalleryImages' : IDL.Func([], [IDL.Vec(GalleryImage)], ['query']),
+  'listPrograms' : IDL.Func([], [IDL.Vec(ProgramContent)], ['query']),
   'listSuccessStories' : IDL.Func([], [IDL.Vec(SuccessStory)], ['query']),
+  'listSuccessStoriesByProgram' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(SuccessStory)],
+      ['query'],
+    ),
   'registerForEvent' : IDL.Func(
       [IDL.Nat, IDL.Text, IDL.Text, IDL.Text],
       [IDL.Nat],
@@ -261,19 +299,38 @@ export const idlService = IDL.Service({
       [IDL.Bool],
       [],
     ),
+  'updateNgoStats' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+      [IDL.Record({ 'ok' : IDL.Bool, 'err' : IDL.Opt(IDL.Text) })],
+      [],
+    ),
   'updateRazorpayKeyId' : IDL.Func(
       [IDL.Text],
       [IDL.Record({ 'ok' : IDL.Bool, 'err' : IDL.Opt(IDL.Text) })],
       [],
     ),
   'updateSuccessStory' : IDL.Func(
-      [IDL.Nat, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+      [
+        IDL.Nat,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+      ],
       [IDL.Bool],
       [],
     ),
   'updateTeamPhotos' : IDL.Func(
-      [IDL.Opt(IDL.Text), IDL.Opt(IDL.Text)],
+      [IDL.Opt(IDL.Text), IDL.Opt(IDL.Text), IDL.Opt(IDL.Text)],
       [IDL.Record({ 'ok' : IDL.Bool, 'err' : IDL.Opt(IDL.Text) })],
+      [],
+    ),
+  'upsertProgramContent' : IDL.Func(
+      [ProgramContent],
+      [IDL.Variant({ 'ok' : IDL.Null, 'err' : IDL.Text })],
       [],
     ),
 });
@@ -358,6 +415,21 @@ export const idlFactory = ({ IDL }) => {
     'category' : IDL.Text,
     'location' : IDL.Text,
   });
+  const ProgramContent = IDL.Record({
+    'id' : IDL.Text,
+    'stat1Label' : IDL.Text,
+    'tagline' : IDL.Text,
+    'stat2Value' : IDL.Text,
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'heroImage' : IDL.Text,
+    'stat2Label' : IDL.Text,
+    'updatedAt' : IDL.Int,
+    'stat3Value' : IDL.Text,
+    'howItWorks' : IDL.Vec(IDL.Text),
+    'stat1Value' : IDL.Text,
+    'stat3Label' : IDL.Text,
+  });
   const VolunteerApplication = IDL.Record({
     'id' : IDL.Nat,
     'city' : IDL.Text,
@@ -376,6 +448,7 @@ export const idlFactory = ({ IDL }) => {
     'date' : IDL.Text,
     'imageUrl' : IDL.Text,
     'location' : IDL.Text,
+    'program' : IDL.Text,
   });
   
   return IDL.Service({
@@ -404,7 +477,7 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'addSuccessStory' : IDL.Func(
-        [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
         [IDL.Nat],
         [],
       ),
@@ -430,6 +503,17 @@ export const idlFactory = ({ IDL }) => {
             'adminPrincipals' : IDL.Vec(IDL.Principal),
             'razorpayKeyId' : IDL.Opt(IDL.Text),
             'treasurerPhotoKey' : IDL.Opt(IDL.Text),
+            'secretaryPhotoKey' : IDL.Opt(IDL.Text),
+            'ngoStats' : IDL.Record({
+              'districtsCovered' : IDL.Text,
+              'villagesCovered' : IDL.Text,
+              'volunteers' : IDL.Text,
+              'treesPlanted' : IDL.Text,
+              'acresConserved' : IDL.Text,
+              'panchayatsCovered' : IDL.Text,
+              'householdsCovered' : IDL.Text,
+              'farmersTrained' : IDL.Text,
+            }),
           }),
         ],
         ['query'],
@@ -468,6 +552,11 @@ export const idlFactory = ({ IDL }) => {
       ),
     'getPartnerInquiries' : IDL.Func([], [IDL.Vec(PartnerInquiry)], ['query']),
     'getPastEvents' : IDL.Func([], [IDL.Vec(Event)], ['query']),
+    'getProgramContent' : IDL.Func(
+        [IDL.Text],
+        [IDL.Opt(ProgramContent)],
+        ['query'],
+      ),
     'getUpcomingEvents' : IDL.Func([], [IDL.Vec(Event)], ['query']),
     'getVolunteerApplications' : IDL.Func(
         [],
@@ -477,7 +566,13 @@ export const idlFactory = ({ IDL }) => {
     'listBlogPosts' : IDL.Func([], [IDL.Vec(BlogPost)], ['query']),
     'listEvents' : IDL.Func([], [IDL.Vec(Event)], ['query']),
     'listGalleryImages' : IDL.Func([], [IDL.Vec(GalleryImage)], ['query']),
+    'listPrograms' : IDL.Func([], [IDL.Vec(ProgramContent)], ['query']),
     'listSuccessStories' : IDL.Func([], [IDL.Vec(SuccessStory)], ['query']),
+    'listSuccessStoriesByProgram' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(SuccessStory)],
+        ['query'],
+      ),
     'registerForEvent' : IDL.Func(
         [IDL.Nat, IDL.Text, IDL.Text, IDL.Text],
         [IDL.Nat],
@@ -538,19 +633,38 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Bool],
         [],
       ),
+    'updateNgoStats' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [IDL.Record({ 'ok' : IDL.Bool, 'err' : IDL.Opt(IDL.Text) })],
+        [],
+      ),
     'updateRazorpayKeyId' : IDL.Func(
         [IDL.Text],
         [IDL.Record({ 'ok' : IDL.Bool, 'err' : IDL.Opt(IDL.Text) })],
         [],
       ),
     'updateSuccessStory' : IDL.Func(
-        [IDL.Nat, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [
+          IDL.Nat,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+        ],
         [IDL.Bool],
         [],
       ),
     'updateTeamPhotos' : IDL.Func(
-        [IDL.Opt(IDL.Text), IDL.Opt(IDL.Text)],
+        [IDL.Opt(IDL.Text), IDL.Opt(IDL.Text), IDL.Opt(IDL.Text)],
         [IDL.Record({ 'ok' : IDL.Bool, 'err' : IDL.Opt(IDL.Text) })],
+        [],
+      ),
+    'upsertProgramContent' : IDL.Func(
+        [ProgramContent],
+        [IDL.Variant({ 'ok' : IDL.Null, 'err' : IDL.Text })],
         [],
       ),
   });

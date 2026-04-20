@@ -16,8 +16,25 @@ type SuccessStory =
    id: nat;
    imageUrl: text;
    location: text;
+   program: text;
    storyText: text;
    title: text;
+ };
+type ProgramContent = 
+ record {
+   description: text;
+   heroImage: text;
+   howItWorks: vec text;
+   id: text;
+   name: text;
+   stat1Label: text;
+   stat1Value: text;
+   stat2Label: text;
+   stat2Value: text;
+   stat3Label: text;
+   stat3Value: text;
+   tagline: text;
+   updatedAt: int;
  };
 type PartnerInquiry = 
  record {
@@ -114,7 +131,7 @@ service : {
   addGalleryImage: (title: text, description: text, category: text, date:
    text, location: text, imageKey: text) -> (nat);
   addSuccessStory: (title: text, beneficiaryName: text, location: text,
-   storyText: text, imageUrl: text, date: text) -> (nat);
+   program: text, storyText: text, imageUrl: text, date: text) -> (nat);
   applyInternship: (name: text, email: text, phone: text, city: text, area:
    text) -> (nat);
   applyVolunteer: (name: text, email: text, phone: text, city: text, skills:
@@ -127,7 +144,19 @@ service : {
    (record {
       adminPrincipals: vec principal;
       chairpersonPhotoKey: opt text;
+      ngoStats:
+       record {
+         acresConserved: text;
+         districtsCovered: text;
+         farmersTrained: text;
+         householdsCovered: text;
+         panchayatsCovered: text;
+         treesPlanted: text;
+         villagesCovered: text;
+         volunteers: text;
+       };
       razorpayKeyId: opt text;
+      secretaryPhotoKey: opt text;
       treasurerPhotoKey: opt text;
     }) query;
   getAdminStats: () -> (AdminStats) query;
@@ -140,12 +169,15 @@ service : {
   getNewsletterSignups: () -> (vec NewsletterSignup) query;
   getPartnerInquiries: () -> (vec PartnerInquiry) query;
   getPastEvents: () -> (vec Event) query;
+  getProgramContent: (id: text) -> (opt ProgramContent) query;
   getUpcomingEvents: () -> (vec Event) query;
   getVolunteerApplications: () -> (vec VolunteerApplication) query;
   listBlogPosts: () -> (vec BlogPost) query;
   listEvents: () -> (vec Event) query;
   listGalleryImages: () -> (vec GalleryImage) query;
+  listPrograms: () -> (vec ProgramContent) query;
   listSuccessStories: () -> (vec SuccessStory) query;
+  listSuccessStoriesByProgram: (programId: text) -> (vec SuccessStory) query;
   registerForEvent: (eventId: nat, name: text, email: text, phone: text) ->
    (nat);
   submitContact: (name: text, email: text, subject: text, message: text) ->
@@ -169,15 +201,27 @@ service : {
    registrationsOpen: bool) -> (bool);
   updateGalleryImage: (id: nat, title: text, description: text, category:
    text, date: text, location: text) -> (bool);
+  updateNgoStats: (treesPlanted: text, villagesCovered: text, volunteers:
+   text, acresConserved: text, farmersTrained: text, panchayatsCovered: 
+   text, householdsCovered: text) -> (record {
+                                        err: opt text;
+                                        ok: bool;
+                                      });
   updateRazorpayKeyId: (keyId: text) -> (record {
                                            err: opt text;
                                            ok: bool;
                                          });
   updateSuccessStory: (id: nat, title: text, beneficiaryName: text, location:
-   text, storyText: text, imageUrl: text, date: text) -> (bool);
-  updateTeamPhotos: (chairpersonKey: opt text, treasurerKey: opt text) ->
-   (record {
-      err: opt text;
-      ok: bool;
+   text, program: text, storyText: text, imageUrl: text, date: text) ->
+   (bool);
+  updateTeamPhotos: (secretaryKey: opt text, chairpersonKey: opt text,
+   treasurerKey: opt text) -> (record {
+                                 err: opt text;
+                                 ok: bool;
+                               });
+  upsertProgramContent: (content: ProgramContent) ->
+   (variant {
+      err: text;
+      ok;
     });
 }

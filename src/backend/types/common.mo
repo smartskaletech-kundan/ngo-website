@@ -48,6 +48,7 @@ module {
     title : Text;
     beneficiaryName : Text;
     location : Text;
+    program : Text;
     storyText : Text;
     imageUrl : Text;
     date : Text;

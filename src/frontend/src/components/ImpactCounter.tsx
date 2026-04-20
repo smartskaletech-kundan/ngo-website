@@ -42,7 +42,7 @@ function CounterItem({ icon, value, label }: CounterItemProps) {
 export default function ImpactCounter() {
   const items = [
     { icon: "🌳", value: "5,686+", label: "Trees Planted" },
-    { icon: "♻️", value: "1,875 Kg", label: "Waste Recycled" },
+    { icon: "📍", value: "6", label: "Districts Covered" },
     { icon: "👥", value: "1,183+", label: "Families Impacted" },
     { icon: "🌾", value: "167+ Acres", label: "Soil Conserved" },
   ];

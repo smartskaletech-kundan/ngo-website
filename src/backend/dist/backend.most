@@ -1,4 +1,4 @@
-// Version: 1.0.0
+// Version: 3.0.0
 type BlogPost__262913828 =
   {
     author : Text;
@@ -66,11 +66,46 @@ type InternshipApplication__771816711 =
     timestamp : Int
   };
 type Leaf__520550824<T> = {data : Data__159895909<T>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
 type Nat__490723111 = Nat__920180692;
 type Nat__920180692 = Nat;
 type NewsletterSignup__847679266 = {email : Text; id : Nat; timestamp : Int};
+type NgoStats__299361523 =
+  {
+    var acresConserved : Text;
+    var districtsCovered : Text;
+    var farmersTrained : Text;
+    var householdsCovered : Text;
+    var panchayatsCovered : Text;
+    var treesPlanted : Text;
+    var villagesCovered : Text;
+    var volunteers : Text
+  };
 type Node__92254746<T> =
   {#internal : Internal__667636161<T>; #leaf : Leaf__520550824<T>};
+type OldAdminSettings__589275897 =
+  {
+    var adminPrincipals : [Principal];
+    var chairpersonPhotoKey : ?Text;
+    var razorpayKeyId : ?Text;
+    var treasurerPhotoKey : ?Text
+  };
+type OldSuccessStory__462307752 =
+  {
+    beneficiaryName : Text;
+    date : Text;
+    id : Nat;
+    imageUrl : Text;
+    location : Text;
+    storyText : Text;
+    title : Text
+  };
 type PartnerInquiry__518520708 =
   {
     contactPerson : Text;
@@ -80,6 +115,22 @@ type PartnerInquiry__518520708 =
     partnershipNature : Text;
     timestamp : Int
   };
+type ProgramContent__524762496 =
+  {
+    description : Text;
+    heroImage : Text;
+    howItWorks : [Text];
+    id : Text;
+    name : Text;
+    stat1Label : Text;
+    stat1Value : Text;
+    stat2Label : Text;
+    stat2Value : Text;
+    stat3Label : Text;
+    stat3Value : Text;
+    tagline : Text;
+    updatedAt : Int
+  };
 type SuccessStory__737109034 =
   {
     beneficiaryName : Text;
@@ -87,6 +138,7 @@ type SuccessStory__737109034 =
     id : Nat;
     imageUrl : Text;
     location : Text;
+    program : Text;
     storyText : Text;
     title : Text
   };
@@ -101,12 +153,114 @@ type VolunteerApplication__571771625 =
     skills : Text;
     timestamp : Int
   };
-actor {
+actor ({
+  in adminSettings : OldAdminSettings__589275897;
+  stable blogIdRef :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable blogPosts :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?BlogPost__262913828]];
+      var elementIndex : Nat__490723111
+    };
+  stable contacts :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ContactSubmission__390548495]];
+      var elementIndex : Nat__490723111
+    };
+  stable eventIdRef :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable eventRegIdRef :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable eventRegistrations :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?EventRegistration__917971228]];
+      var elementIndex : Nat__490723111
+    };
+  stable events :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Event__637941869]];
+      var elementIndex : Nat__490723111
+    };
+  stable galleryIdRef :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable galleryImages :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?GalleryImage__1056092601]];
+      var elementIndex : Nat__490723111
+    };
+  stable internships :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?InternshipApplication__771816711]];
+      var elementIndex : Nat__490723111
+    };
+  stable newsletterEmails :
+    {var root : Node__92254746<Text>; var size : Nat__490723111};
+  stable newsletters :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?NewsletterSignup__847679266]];
+      var elementIndex : Nat__490723111
+    };
+  stable var nextContactId : Nat;
+  stable var nextInternshipId : Nat;
+  stable var nextNewsletterId : Nat;
+  stable var nextPartnerId : Nat;
+  stable var nextVolunteerId : Nat;
+  stable partners :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?PartnerInquiry__518520708]];
+      var elementIndex : Nat__490723111
+    };
+  stable programs :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ProgramContent__524762496]];
+      var elementIndex : Nat__490723111
+    };
+  stable storyIdRef :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  in successStories : List__415060402<OldSuccessStory__462307752>;
+  stable volunteers :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?VolunteerApplication__571771625]];
+      var elementIndex : Nat__490723111
+    }
+}, {
   stable adminSettings :
     {
       var adminPrincipals : [Principal];
       var chairpersonPhotoKey : ?Text;
+      ngoStats : NgoStats__299361523;
       var razorpayKeyId : ?Text;
+      var secretaryPhotoKey : ?Text;
       var treasurerPhotoKey : ?Text
     };
   stable blogIdRef :
@@ -188,6 +342,12 @@ actor {
       var blocks : [var [var ?PartnerInquiry__518520708]];
       var elementIndex : Nat__490723111
     };
+  stable programs :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ProgramContent__524762496]];
+      var elementIndex : Nat__490723111
+    };
   stable storyIdRef :
     {
       var blockIndex : Nat__490723111;
@@ -206,4 +366,4 @@ actor {
       var blocks : [var [var ?VolunteerApplication__571771625]];
       var elementIndex : Nat__490723111
     }
-};
+}) ;

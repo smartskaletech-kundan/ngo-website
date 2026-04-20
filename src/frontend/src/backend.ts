@@ -108,6 +108,7 @@ export interface SuccessStory {
     date: string;
     imageUrl: string;
     location: string;
+    program: string;
 }
 export interface VolunteerApplication {
     id: bigint;
@@ -126,14 +127,6 @@ export interface AdminStats {
     eventCount: bigint;
     blogCount: bigint;
 }
-export interface PartnerInquiry {
-    id: bigint;
-    contactPerson: string;
-    email: string;
-    timestamp: bigint;
-    partnershipNature: string;
-    organization: string;
-}
 export interface GalleryImage {
     id: bigint;
     title: string;
@@ -143,6 +136,14 @@ export interface GalleryImage {
     category: string;
     location: string;
     uploadedAt: bigint;
+}
+export interface PartnerInquiry {
+    id: bigint;
+    contactPerson: string;
+    email: string;
+    timestamp: bigint;
+    partnershipNature: string;
+    organization: string;
 }
 export interface Event {
     id: bigint;
@@ -180,6 +181,21 @@ export interface InternshipApplication {
     timestamp: bigint;
     phone: string;
 }
+export interface ProgramContent {
+    id: string;
+    stat1Label: string;
+    tagline: string;
+    stat2Value: string;
+    name: string;
+    description: string;
+    heroImage: string;
+    stat2Label: string;
+    updatedAt: bigint;
+    stat3Value: string;
+    howItWorks: Array<string>;
+    stat1Value: string;
+    stat3Label: string;
+}
 export interface NewsletterSignup {
     id: bigint;
     email: string;
@@ -189,7 +205,7 @@ export interface backendInterface {
     addBlogPost(title: string, excerpt: string, content: string, category: string, date: string, imageUrl: string, author: string): Promise<bigint>;
     addEvent(title: string, description: string, date: string, location: string, category: string, imageUrl: string, status: string, registrationsOpen: boolean): Promise<bigint>;
     addGalleryImage(title: string, description: string, category: string, date: string, location: string, imageKey: string): Promise<bigint>;
-    addSuccessStory(title: string, beneficiaryName: string, location: string, storyText: string, imageUrl: string, date: string): Promise<bigint>;
+    addSuccessStory(title: string, beneficiaryName: string, location: string, program: string, storyText: string, imageUrl: string, date: string): Promise<bigint>;
     applyInternship(name: string, email: string, phone: string, city: string, area: string): Promise<bigint>;
     applyVolunteer(name: string, email: string, phone: string, city: string, skills: string, availability: string): Promise<bigint>;
     deleteBlogPost(id: bigint): Promise<boolean>;
@@ -201,6 +217,17 @@ export interface backendInterface {
         adminPrincipals: Array<Principal>;
         razorpayKeyId?: string;
         treasurerPhotoKey?: string;
+        secretaryPhotoKey?: string;
+        ngoStats: {
+            districtsCovered: string;
+            villagesCovered: string;
+            volunteers: string;
+            treesPlanted: string;
+            acresConserved: string;
+            panchayatsCovered: string;
+            householdsCovered: string;
+            farmersTrained: string;
+        };
     }>;
     getAdminStats(): Promise<AdminStats>;
     getAllBlogPosts(): Promise<Array<BlogPost>>;
@@ -212,12 +239,15 @@ export interface backendInterface {
     getNewsletterSignups(): Promise<Array<NewsletterSignup>>;
     getPartnerInquiries(): Promise<Array<PartnerInquiry>>;
     getPastEvents(): Promise<Array<Event>>;
+    getProgramContent(id: string): Promise<ProgramContent | null>;
     getUpcomingEvents(): Promise<Array<Event>>;
     getVolunteerApplications(): Promise<Array<VolunteerApplication>>;
     listBlogPosts(): Promise<Array<BlogPost>>;
     listEvents(): Promise<Array<Event>>;
     listGalleryImages(): Promise<Array<GalleryImage>>;
+    listPrograms(): Promise<Array<ProgramContent>>;
     listSuccessStories(): Promise<Array<SuccessStory>>;
+    listSuccessStoriesByProgram(programId: string): Promise<Array<SuccessStory>>;
     registerForEvent(eventId: bigint, name: string, email: string, phone: string): Promise<bigint>;
     submitContact(name: string, email: string, subject: string, message: string): Promise<bigint>;
     submitPartnerInquiry(organization: string, contactPerson: string, email: string, partnershipNature: string): Promise<bigint>;
@@ -235,16 +265,28 @@ export interface backendInterface {
     updateBlogPost(id: bigint, title: string, excerpt: string, content: string, category: string, date: string, imageUrl: string, author: string, published: boolean): Promise<boolean>;
     updateEvent(id: bigint, title: string, description: string, date: string, location: string, category: string, imageUrl: string, status: string, registrationsOpen: boolean): Promise<boolean>;
     updateGalleryImage(id: bigint, title: string, description: string, category: string, date: string, location: string): Promise<boolean>;
+    updateNgoStats(treesPlanted: string, villagesCovered: string, volunteers: string, acresConserved: string, farmersTrained: string, panchayatsCovered: string, householdsCovered: string): Promise<{
+        ok: boolean;
+        err?: string;
+    }>;
     updateRazorpayKeyId(keyId: string): Promise<{
         ok: boolean;
         err?: string;
     }>;
-    updateSuccessStory(id: bigint, title: string, beneficiaryName: string, location: string, storyText: string, imageUrl: string, date: string): Promise<boolean>;
-    updateTeamPhotos(chairpersonKey: string | null, treasurerKey: string | null): Promise<{
+    updateSuccessStory(id: bigint, title: string, beneficiaryName: string, location: string, program: string, storyText: string, imageUrl: string, date: string): Promise<boolean>;
+    updateTeamPhotos(secretaryKey: string | null, chairpersonKey: string | null, treasurerKey: string | null): Promise<{
         ok: boolean;
         err?: string;
     }>;
+    upsertProgramContent(content: ProgramContent): Promise<{
+        __kind__: "ok";
+        ok: null;
+    } | {
+        __kind__: "err";
+        err: string;
+    }>;
 }
+import type { ProgramContent as _ProgramContent } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async addBlogPost(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string): Promise<bigint> {
@@ -289,17 +331,17 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async addSuccessStory(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string): Promise<bigint> {
+    async addSuccessStory(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string): Promise<bigint> {
         if (this.processError) {
             try {
-                const result = await this.actor.addSuccessStory(arg0, arg1, arg2, arg3, arg4, arg5);
+                const result = await this.actor.addSuccessStory(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.addSuccessStory(arg0, arg1, arg2, arg3, arg4, arg5);
+            const result = await this.actor.addSuccessStory(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
             return result;
         }
     }
@@ -392,6 +434,17 @@ export class Backend implements backendInterface {
         adminPrincipals: Array<Principal>;
         razorpayKeyId?: string;
         treasurerPhotoKey?: string;
+        secretaryPhotoKey?: string;
+        ngoStats: {
+            districtsCovered: string;
+            villagesCovered: string;
+            volunteers: string;
+            treesPlanted: string;
+            acresConserved: string;
+            panchayatsCovered: string;
+            householdsCovered: string;
+            farmersTrained: string;
+        };
     }> {
         if (this.processError) {
             try {
@@ -546,6 +599,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getProgramContent(arg0: string): Promise<ProgramContent | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getProgramContent(arg0);
+                return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getProgramContent(arg0);
+            return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+        }
+    }
     async getUpcomingEvents(): Promise<Array<Event>> {
         if (this.processError) {
             try {
@@ -616,6 +683,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async listPrograms(): Promise<Array<ProgramContent>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listPrograms();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listPrograms();
+            return result;
+        }
+    }
     async listSuccessStories(): Promise<Array<SuccessStory>> {
         if (this.processError) {
             try {
@@ -627,6 +708,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.listSuccessStories();
+            return result;
+        }
+    }
+    async listSuccessStoriesByProgram(arg0: string): Promise<Array<SuccessStory>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listSuccessStoriesByProgram(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listSuccessStoriesByProgram(arg0);
             return result;
         }
     }
@@ -682,14 +777,14 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.subscribeNewsletter(arg0);
-                return from_candid_variant_n3(this._uploadFile, this._downloadFile, result);
+                return from_candid_variant_n4(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.subscribeNewsletter(arg0);
-            return from_candid_variant_n3(this._uploadFile, this._downloadFile, result);
+            return from_candid_variant_n4(this._uploadFile, this._downloadFile, result);
         }
     }
     async updateAdminPrincipals(arg0: Array<Principal>): Promise<{
@@ -699,14 +794,14 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.updateAdminPrincipals(arg0);
-                return from_candid_record_n4(this._uploadFile, this._downloadFile, result);
+                return from_candid_record_n5(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.updateAdminPrincipals(arg0);
-            return from_candid_record_n4(this._uploadFile, this._downloadFile, result);
+            return from_candid_record_n5(this._uploadFile, this._downloadFile, result);
         }
     }
     async updateBlogPost(arg0: bigint, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, arg7: string, arg8: boolean): Promise<boolean> {
@@ -751,6 +846,23 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async updateNgoStats(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string): Promise<{
+        ok: boolean;
+        err?: string;
+    }> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateNgoStats(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+                return from_candid_record_n5(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateNgoStats(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+            return from_candid_record_n5(this._uploadFile, this._downloadFile, result);
+        }
+    }
     async updateRazorpayKeyId(arg0: string): Promise<{
         ok: boolean;
         err?: string;
@@ -758,49 +870,72 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.updateRazorpayKeyId(arg0);
-                return from_candid_record_n4(this._uploadFile, this._downloadFile, result);
+                return from_candid_record_n5(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.updateRazorpayKeyId(arg0);
-            return from_candid_record_n4(this._uploadFile, this._downloadFile, result);
+            return from_candid_record_n5(this._uploadFile, this._downloadFile, result);
         }
     }
-    async updateSuccessStory(arg0: bigint, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string): Promise<boolean> {
+    async updateSuccessStory(arg0: bigint, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, arg7: string): Promise<boolean> {
         if (this.processError) {
             try {
-                const result = await this.actor.updateSuccessStory(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+                const result = await this.actor.updateSuccessStory(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.updateSuccessStory(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+            const result = await this.actor.updateSuccessStory(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
             return result;
         }
     }
-    async updateTeamPhotos(arg0: string | null, arg1: string | null): Promise<{
+    async updateTeamPhotos(arg0: string | null, arg1: string | null, arg2: string | null): Promise<{
         ok: boolean;
         err?: string;
     }> {
         if (this.processError) {
             try {
-                const result = await this.actor.updateTeamPhotos(to_candid_opt_n5(this._uploadFile, this._downloadFile, arg0), to_candid_opt_n5(this._uploadFile, this._downloadFile, arg1));
-                return from_candid_record_n4(this._uploadFile, this._downloadFile, result);
+                const result = await this.actor.updateTeamPhotos(to_candid_opt_n6(this._uploadFile, this._downloadFile, arg0), to_candid_opt_n6(this._uploadFile, this._downloadFile, arg1), to_candid_opt_n6(this._uploadFile, this._downloadFile, arg2));
+                return from_candid_record_n5(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.updateTeamPhotos(to_candid_opt_n5(this._uploadFile, this._downloadFile, arg0), to_candid_opt_n5(this._uploadFile, this._downloadFile, arg1));
-            return from_candid_record_n4(this._uploadFile, this._downloadFile, result);
+            const result = await this.actor.updateTeamPhotos(to_candid_opt_n6(this._uploadFile, this._downloadFile, arg0), to_candid_opt_n6(this._uploadFile, this._downloadFile, arg1), to_candid_opt_n6(this._uploadFile, this._downloadFile, arg2));
+            return from_candid_record_n5(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async upsertProgramContent(arg0: ProgramContent): Promise<{
+        __kind__: "ok";
+        ok: null;
+    } | {
+        __kind__: "err";
+        err: string;
+    }> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.upsertProgramContent(arg0);
+                return from_candid_variant_n7(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.upsertProgramContent(arg0);
+            return from_candid_variant_n7(this._uploadFile, this._downloadFile, result);
         }
     }
 }
 function from_candid_opt_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [string]): string | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_ProgramContent]): ProgramContent | null {
     return value.length === 0 ? null : value[0];
 }
 function from_candid_record_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
@@ -808,20 +943,44 @@ function from_candid_record_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint
     adminPrincipals: Array<Principal>;
     razorpayKeyId: [] | [string];
     treasurerPhotoKey: [] | [string];
+    secretaryPhotoKey: [] | [string];
+    ngoStats: {
+        districtsCovered: string;
+        villagesCovered: string;
+        volunteers: string;
+        treesPlanted: string;
+        acresConserved: string;
+        panchayatsCovered: string;
+        householdsCovered: string;
+        farmersTrained: string;
+    };
 }): {
     chairpersonPhotoKey?: string;
     adminPrincipals: Array<Principal>;
     razorpayKeyId?: string;
     treasurerPhotoKey?: string;
+    secretaryPhotoKey?: string;
+    ngoStats: {
+        districtsCovered: string;
+        villagesCovered: string;
+        volunteers: string;
+        treesPlanted: string;
+        acresConserved: string;
+        panchayatsCovered: string;
+        householdsCovered: string;
+        farmersTrained: string;
+    };
 } {
     return {
         chairpersonPhotoKey: record_opt_to_undefined(from_candid_opt_n2(_uploadFile, _downloadFile, value.chairpersonPhotoKey)),
         adminPrincipals: value.adminPrincipals,
         razorpayKeyId: record_opt_to_undefined(from_candid_opt_n2(_uploadFile, _downloadFile, value.razorpayKeyId)),
-        treasurerPhotoKey: record_opt_to_undefined(from_candid_opt_n2(_uploadFile, _downloadFile, value.treasurerPhotoKey))
+        treasurerPhotoKey: record_opt_to_undefined(from_candid_opt_n2(_uploadFile, _downloadFile, value.treasurerPhotoKey)),
+        secretaryPhotoKey: record_opt_to_undefined(from_candid_opt_n2(_uploadFile, _downloadFile, value.secretaryPhotoKey)),
+        ngoStats: value.ngoStats
     };
 }
-function from_candid_record_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     ok: boolean;
     err: [] | [string];
 }): {
@@ -833,7 +992,7 @@ function from_candid_record_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint
         err: record_opt_to_undefined(from_candid_opt_n2(_uploadFile, _downloadFile, value.err))
     };
 }
-function from_candid_variant_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     ok: bigint;
 } | {
     err: string;
@@ -852,7 +1011,26 @@ function from_candid_variant_n3(_uploadFile: (file: ExternalBlob) => Promise<Uin
         err: value.err
     } : value;
 }
-function to_candid_opt_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: string | null): [] | [string] {
+function from_candid_variant_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    ok: null;
+} | {
+    err: string;
+}): {
+    __kind__: "ok";
+    ok: null;
+} | {
+    __kind__: "err";
+    err: string;
+} {
+    return "ok" in value ? {
+        __kind__: "ok",
+        ok: value.ok
+    } : "err" in value ? {
+        __kind__: "err",
+        err: value.err
+    } : value;
+}
+function to_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: string | null): [] | [string] {
     return value === null ? candid_none() : candid_some(value);
 }
 export interface CreateActorOptions {

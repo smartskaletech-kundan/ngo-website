@@ -1,35 +1,50 @@
 import { Link } from "@tanstack/react-router";
 import Layout from "../components/Layout";
+import SEO from "../components/SEO";
 
 const values = [
   {
     icon: "🌿",
-    title: "Integrity",
-    desc: "We act with transparency and accountability in all we do.",
+    title: "Ecological Integrity",
+    desc: "We plant native species and conserve natural land using methods that respect Bihar's ecology.",
   },
   {
-    icon: "♻️",
-    title: "Sustainability",
-    desc: "Every action is guided by long-term ecological and social impact.",
-  },
-  {
-    icon: "🤝",
-    title: "Inclusivity",
-    desc: "We center marginalized communities in our planning and programs.",
+    icon: "🏘️",
+    title: "Community Ownership",
+    desc: "Our programs work only when villages own them. We build capacity, not dependency.",
   },
   {
     icon: "📊",
-    title: "Impact",
-    desc: "We measure outcomes and continuously improve our work.",
+    title: "Honest Accounting",
+    desc: "We are a young NGO with modest impact. We report what we have actually done — not what sounds impressive.",
   },
+  {
+    icon: "🌱",
+    title: "Long-Term Commitment",
+    desc: "Environmental change takes decades. We are here for the long run — planting seeds today for a greener Bihar tomorrow.",
+  },
+];
+
+const districts = [
+  { name: "Patna", emoji: "🏙️" },
+  { name: "Ara (Bhojpur)", emoji: "🌾" },
+  { name: "Vaishali", emoji: "🌳" },
+  { name: "Nalanda", emoji: "🏛️" },
+  { name: "Jahanabad", emoji: "🌿" },
+  { name: "Arwal", emoji: "🌻" },
 ];
 
 export default function About() {
   return (
     <Layout
-      pageTitle="About Anumaya Sansthan"
+      pageTitle="About MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN"
       pageDescription="Our story, mission, values, and registration details."
     >
+      <SEO
+        title="About Us"
+        description="Learn about MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN's mission, vision, and values. Founded in June 2023, we work to restore ecology and empower communities across 6 Bihar districts."
+      />
+
       {/* Our Story */}
       <section
         className="py-16 md:py-24 bg-cream"
@@ -45,30 +60,33 @@ export default function About() {
                 Born from Bihar's Ecological Need
               </h2>
               <p className="text-foreground/75 leading-relaxed mb-4">
-                Anumaya Sansthan — officially{" "}
+                MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN — officially{" "}
                 <span className="font-hindi font-semibold text-forest-green-800">
                   माया सामाजिक उत्थान एवं परामर्श संस्थान
                 </span>{" "}
                 — was established on 12th June 2023 under Registration No.
-                S000071/23-24.
+                S000071/23-24. We are a newly registered NGO rooted in the rural
+                heartland of Bihar, working to address ecological degradation
+                and social underdevelopment in our communities.
               </p>
               <p className="text-foreground/75 leading-relaxed mb-4">
-                Born from a deeply felt need to address ecological degradation
-                and social underdevelopment in Bihar, the organization works to
-                restore nature's balance while uplifting rural communities
-                through sustainable, participatory programs.
+                In just over a year, we have planted 800+ trees, worked across 6
+                districts, and engaged over 30 volunteers who believe in a
+                greener Bihar. We are growing — step by step, village by
+                village.
               </p>
               <p className="text-foreground/75 leading-relaxed">
-                From the fertile plains of Patna to the rural villages of
-                Nalanda, Vaishali, and Muzaffarpur, Anumaya Sansthan is building
-                a greener, more resilient Bihar — one tree, one community, one
-                action at a time.
+                Our work is guided by the belief that environmental restoration
+                and community upliftment go hand in hand. From tree plantation
+                drives in Patna to soil conservation support for farmers in
+                Nalanda and Arwal, we are laying the foundation for a
+                sustainable and resilient Bihar.
               </p>
             </div>
             <div>
               <img
                 src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=700&q=80"
-                alt="Community development work by Anumaya Sansthan"
+                alt="Community development work by MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN"
                 className="rounded-card shadow-card w-full h-80 object-cover"
               />
             </div>
@@ -84,7 +102,7 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-forest-green-900">
-              Our Mission & Vision
+              Our Mission &amp; Vision
             </h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
@@ -143,9 +161,46 @@ export default function About() {
         </div>
       </section>
 
+      {/* Coverage Districts */}
+      <section
+        className="py-12 md:py-16 bg-forest-green-50"
+        data-ocid="about.coverage_section"
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <span className="inline-block bg-forest-green-100 text-forest-green-800 text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
+              Where We Work
+            </span>
+            <h2 className="font-heading text-2xl md:text-3xl font-bold text-forest-green-900">
+              Our Coverage: 6 Bihar Districts
+            </h2>
+            <p className="text-foreground/60 mt-2 text-sm max-w-lg mx-auto">
+              In our initial phase, we operate across these 6 districts of Bihar
+              — growing our footprint step by step.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {districts.map((d, i) => (
+              <div
+                key={d.name}
+                className="flex items-center gap-3 bg-white rounded-xl border border-forest-green-200 px-4 py-3 shadow-xs hover:border-forest-green-400 transition-colors"
+                data-ocid={`about.district.${i + 1}`}
+              >
+                <span className="text-2xl" aria-hidden="true">
+                  {d.emoji}
+                </span>
+                <span className="font-semibold text-forest-green-900 text-sm">
+                  {d.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Registration Card */}
       <section
-        className="py-16 bg-forest-green-50"
+        className="py-16 bg-cream"
         data-ocid="about.registration_section"
       >
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
@@ -157,7 +212,7 @@ export default function About() {
               <span className="text-4xl">📜</span>
               <div>
                 <h3 className="font-heading text-xl font-bold text-forest-green-900">
-                  Anumaya Sansthan
+                  MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN
                 </h3>
                 <p className="font-hindi text-forest-green-700 text-sm">
                   माया सामाजिक उत्थान एवं परामर्श संस्थान
@@ -168,7 +223,11 @@ export default function About() {
               {[
                 { label: "Registration Number", value: "S000071/23-24" },
                 { label: "Date of Registration", value: "12th June 2023" },
-                { label: "Registered Address", value: "Patna, Bihar, India" },
+                {
+                  label: "Registered Address",
+                  value:
+                    "Anupuri, Veer Basawan Singh Nagar, Near Patliputra Railway Station, B.V. College, Phulwari, Patna-800014, Bihar, India",
+                },
                 { label: "Status", value: "Active & Registered" },
               ].map((item) => (
                 <div
@@ -184,6 +243,51 @@ export default function About() {
                 </div>
               ))}
             </div>
+
+            {/* Contact Details */}
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-forest-green-50 rounded-lg p-3 flex items-center gap-2">
+                <span
+                  className="text-forest-green-700 text-lg"
+                  aria-hidden="true"
+                >
+                  📞
+                </span>
+                <div>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">
+                    Phone / WhatsApp
+                  </p>
+                  <a
+                    href="tel:+918210105075"
+                    data-ocid="about.phone_link"
+                    className="font-semibold text-forest-green-800 text-sm hover:text-forest-green-900 transition-colors"
+                  >
+                    +91 8210105075
+                  </a>
+                </div>
+              </div>
+              <div className="bg-forest-green-50 rounded-lg p-3 flex items-center gap-2">
+                <span
+                  className="text-forest-green-700 text-lg"
+                  aria-hidden="true"
+                >
+                  ✉️
+                </span>
+                <div>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">
+                    Email
+                  </p>
+                  <a
+                    href="mailto:nirmalkumarsingh9625@gmail.com"
+                    data-ocid="about.email_link"
+                    className="font-semibold text-forest-green-800 text-sm hover:text-forest-green-900 transition-colors break-all"
+                  >
+                    nirmalkumarsingh9625@gmail.com
+                  </a>
+                </div>
+              </div>
+            </div>
+
             <div className="mt-6 pt-4 border-t border-forest-green-100 flex gap-4">
               <Link
                 to="/transparency"

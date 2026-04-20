@@ -87,6 +87,21 @@ export interface PartnerInquiry {
   'partnershipNature' : string,
   'organization' : string,
 }
+export interface ProgramContent {
+  'id' : string,
+  'stat1Label' : string,
+  'tagline' : string,
+  'stat2Value' : string,
+  'name' : string,
+  'description' : string,
+  'heroImage' : string,
+  'stat2Label' : string,
+  'updatedAt' : bigint,
+  'stat3Value' : string,
+  'howItWorks' : Array<string>,
+  'stat1Value' : string,
+  'stat3Label' : string,
+}
 export interface SuccessStory {
   'id' : bigint,
   'title' : string,
@@ -95,6 +110,7 @@ export interface SuccessStory {
   'date' : string,
   'imageUrl' : string,
   'location' : string,
+  'program' : string,
 }
 export interface VolunteerApplication {
   'id' : bigint,
@@ -120,7 +136,7 @@ export interface _SERVICE {
     bigint
   >,
   'addSuccessStory' : ActorMethod<
-    [string, string, string, string, string, string],
+    [string, string, string, string, string, string, string],
     bigint
   >,
   'applyInternship' : ActorMethod<
@@ -142,6 +158,17 @@ export interface _SERVICE {
       'adminPrincipals' : Array<Principal>,
       'razorpayKeyId' : [] | [string],
       'treasurerPhotoKey' : [] | [string],
+      'secretaryPhotoKey' : [] | [string],
+      'ngoStats' : {
+        'districtsCovered' : string,
+        'villagesCovered' : string,
+        'volunteers' : string,
+        'treesPlanted' : string,
+        'acresConserved' : string,
+        'panchayatsCovered' : string,
+        'householdsCovered' : string,
+        'farmersTrained' : string,
+      },
     }
   >,
   'getAdminStats' : ActorMethod<[], AdminStats>,
@@ -154,12 +181,15 @@ export interface _SERVICE {
   'getNewsletterSignups' : ActorMethod<[], Array<NewsletterSignup>>,
   'getPartnerInquiries' : ActorMethod<[], Array<PartnerInquiry>>,
   'getPastEvents' : ActorMethod<[], Array<Event>>,
+  'getProgramContent' : ActorMethod<[string], [] | [ProgramContent]>,
   'getUpcomingEvents' : ActorMethod<[], Array<Event>>,
   'getVolunteerApplications' : ActorMethod<[], Array<VolunteerApplication>>,
   'listBlogPosts' : ActorMethod<[], Array<BlogPost>>,
   'listEvents' : ActorMethod<[], Array<Event>>,
   'listGalleryImages' : ActorMethod<[], Array<GalleryImage>>,
+  'listPrograms' : ActorMethod<[], Array<ProgramContent>>,
   'listSuccessStories' : ActorMethod<[], Array<SuccessStory>>,
+  'listSuccessStoriesByProgram' : ActorMethod<[string], Array<SuccessStory>>,
   'registerForEvent' : ActorMethod<[bigint, string, string, string], bigint>,
   'submitContact' : ActorMethod<[string, string, string, string], bigint>,
   'submitPartnerInquiry' : ActorMethod<
@@ -187,17 +217,26 @@ export interface _SERVICE {
     [bigint, string, string, string, string, string],
     boolean
   >,
+  'updateNgoStats' : ActorMethod<
+    [string, string, string, string, string, string, string],
+    { 'ok' : boolean, 'err' : [] | [string] }
+  >,
   'updateRazorpayKeyId' : ActorMethod<
     [string],
     { 'ok' : boolean, 'err' : [] | [string] }
   >,
   'updateSuccessStory' : ActorMethod<
-    [bigint, string, string, string, string, string, string],
+    [bigint, string, string, string, string, string, string, string],
     boolean
   >,
   'updateTeamPhotos' : ActorMethod<
-    [[] | [string], [] | [string]],
+    [[] | [string], [] | [string], [] | [string]],
     { 'ok' : boolean, 'err' : [] | [string] }
+  >,
+  'upsertProgramContent' : ActorMethod<
+    [ProgramContent],
+    { 'ok' : null } |
+      { 'err' : string }
   >,
 }
 export declare const idlService: IDL.ServiceClass;

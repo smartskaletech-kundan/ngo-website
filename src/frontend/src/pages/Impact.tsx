@@ -16,6 +16,7 @@ import { useEffect, useRef, useState } from "react";
 import { createActor } from "../backend";
 import type { SuccessStory } from "../backend.d";
 import Layout from "../components/Layout";
+import SEO from "../components/SEO";
 
 // ── Backend hook ─────────────────────────────────────────────────────────────
 
@@ -151,7 +152,7 @@ const sdgCards = [
     number: "SDG 11",
     title: "Sustainable Cities & Communities",
     description:
-      "Building cleaner, greener rural communities through waste management and eco-education.",
+      "Building cleaner, greener rural communities through eco-education and community-led programs across our 6 covered districts.",
     badgeColor: "bg-amber-500",
     icon: Home,
     iconColor: "text-amber-600",
@@ -161,7 +162,7 @@ const sdgCards = [
     number: "SDG 3",
     title: "Good Health & Wellbeing",
     description:
-      "Trees reduce air pollution; clean waste programs reduce disease vectors in rural villages.",
+      "Trees reduce air pollution and improve air quality; green-cover programs in schools and communities contribute to better wellbeing in rural Bihar.",
     badgeColor: "bg-teal-600",
     icon: Heart,
     iconColor: "text-teal-600",
@@ -176,21 +177,21 @@ const timelineItems = [
     year: "2023",
     title: "Founded",
     description:
-      "Registered as S000071/23-24 in Patna, Bihar. First plantation drive launched with 200+ community volunteers.",
+      "Registered as S000071/23-24 on 12th June 2023 in Patna, Bihar. First plantation drive launched with community volunteers across Patna and Ara.",
     icon: "🌱",
   },
   {
     year: "2024",
-    title: "Growth",
+    title: "Growing Roots",
     description:
-      "5,000+ trees planted, Eco-Champion program launched, 30 panchayats served across 6 districts of Bihar.",
+      "800+ trees planted across 6 districts. 20+ farmers trained in soil conservation. 8 panchayats engaged through community development programs.",
     icon: "🌳",
   },
   {
     year: "2025",
-    title: "Expansion",
+    title: "Building Momentum",
     description:
-      "Expanded to 12 districts, soil conservation across 300+ acres, partnerships with 5 corporate CSR partners.",
+      "40+ acres brought under soil conservation. 30+ active volunteers across Patna, Vaishali, Nalanda, Jahanabad, Arwal, and Ara (Bhojpur).",
     icon: "🚀",
   },
 ];
@@ -325,6 +326,10 @@ export default function Impact() {
       pageTitle="Our Impact"
       pageDescription="Measuring the change we create — every tree, every family, every acre"
     >
+      <SEO
+        title="Our Impact"
+        description="See the measurable impact of MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN — 800+ trees planted, 40+ acres of soil conserved, 30+ volunteers, across 6 Bihar districts."
+      />
       {/* ── Section 1: Large Impact Counters ─────────────────────────────── */}
       <section
         className="bg-dark-green py-16 md:py-24"
@@ -337,28 +342,28 @@ export default function Impact() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
             <LargeCounter
               icon="🌳"
-              target={5686}
+              target={800}
               suffix="+"
               label="Trees Planted"
               delay={0}
             />
             <LargeCounter
-              icon="♻️"
-              target={1875}
-              suffix=" Kg"
-              label="Waste Recycled"
+              icon="📍"
+              target={6}
+              suffix=""
+              label="Districts Covered"
               delay={100}
             />
             <LargeCounter
               icon="👥"
-              target={1183}
+              target={30}
               suffix="+"
-              label="Families Impacted"
+              label="Active Volunteers"
               delay={200}
             />
             <LargeCounter
               icon="🌾"
-              target={167}
+              target={40}
               suffix="+"
               label="Acres Soil Conserved"
               delay={300}

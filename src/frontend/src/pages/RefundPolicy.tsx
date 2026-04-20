@@ -1,24 +1,31 @@
 import { Link } from "@tanstack/react-router";
 import Layout from "../components/Layout";
+import SEO from "../components/SEO";
 
 export default function RefundPolicy() {
   return (
     <Layout
       pageTitle="Refund Policy"
-      pageDescription="Our donation refund policy and process for Anumaya Sansthan."
+      pageDescription="Our donation refund policy and process for MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN."
     >
+      <SEO
+        title="Refund Policy"
+        description="Refund and cancellation policy for donations made to MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN."
+      />
       <article className="py-16 md:py-24 bg-cream" data-ocid="refund.page">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="bg-card rounded-card shadow-card p-8 md:p-12">
             <p className="text-muted-foreground text-sm mb-8">
-              Last updated: June 2024 | Anumaya Sansthan (Reg. S000071/23-24)
+              Last updated: June 2024 | MAYA SAMAJIK UTTHAN EVAM PARAMARSH
+              SANSTHAN (Reg. S000071/23-24)
             </p>
 
             <div className="bg-forest-green-50 border border-forest-green-200 rounded-lg p-5 mb-8">
               <p className="text-forest-green-800 font-medium text-sm leading-relaxed">
-                📌 <strong>Summary:</strong> Donations to Anumaya Sansthan are
-                generally non-refundable. However, in case of technical
-                double-charges, we process full refunds within 7 working days.
+                📌 <strong>Summary:</strong> Donations to MAYA SAMAJIK UTTHAN
+                EVAM PARAMARSH SANSTHAN are generally non-refundable. However,
+                in case of technical double-charges, we process full refunds
+                within 7 working days.
               </p>
             </div>
 
@@ -26,10 +33,10 @@ export default function RefundPolicy() {
               1. General Policy
             </h2>
             <p className="text-foreground/75 leading-relaxed mb-6">
-              All donations made to Anumaya Sansthan are voluntary contributions
-              to our mission. Once a donation is made and acknowledged, it is
-              generally non-refundable, as funds are immediately allocated to
-              ongoing programs and initiatives.
+              All donations made to MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN
+              are voluntary contributions to our mission. Once a donation is
+              made and acknowledged, it is generally non-refundable, as funds
+              are immediately allocated to ongoing programs and initiatives.
             </p>
 
             <h2 className="font-heading text-2xl font-bold text-forest-green-900 mb-4">
@@ -58,10 +65,10 @@ export default function RefundPolicy() {
               <li>
                 Email us at{" "}
                 <a
-                  href="mailto:contact@anumayasansthan.org"
+                  href="mailto:nirmalkumarsingh9625@gmail.com"
                   className="text-forest-green-700 underline"
                 >
-                  contact@anumayasansthan.org
+                  nirmalkumarsingh9625@gmail.com
                 </a>
               </li>
               <li>
@@ -101,12 +108,14 @@ export default function RefundPolicy() {
               For any refund queries, reach out to us at:
               <br />📧{" "}
               <a
-                href="mailto:contact@anumayasansthan.org"
+                href="mailto:nirmalkumarsingh9625@gmail.com"
                 className="text-forest-green-700 underline"
               >
-                contact@anumayasansthan.org
+                nirmalkumarsingh9625@gmail.com
               </a>
-              <br />📍 Anumaya Sansthan, Patna, Bihar, India
+              <br />📍 MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN, ANUPURI,
+              VEER BASAWAN SINGH NAGAR, NEAR PATLIPUTRA RAILWAY STATION, B.V.
+              College, Phulwari, Patna-800014, Bihar, India
               <br />🕐 Response time: 1–2 business days
             </p>
 

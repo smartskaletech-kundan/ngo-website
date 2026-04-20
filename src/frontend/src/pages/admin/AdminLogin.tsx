@@ -86,7 +86,7 @@ export default function AdminLogin() {
             className="text-sm mt-1"
             style={{ color: "rgba(165,214,167,0.8)" }}
           >
-            Anumaya Sansthan — Content Panel
+            MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN — Content Panel
           </p>
         </div>
 
@@ -228,7 +228,7 @@ export default function AdminLogin() {
           className="text-center text-xs font-body mt-6"
           style={{ color: "rgba(165,214,167,0.5)" }}
         >
-          Secure admin access · Anumaya Sansthan
+          Secure admin access · MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN
         </p>
       </div>
     </div>

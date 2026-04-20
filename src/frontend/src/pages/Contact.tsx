@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Layout from "../components/Layout";
+import SEO from "../components/SEO";
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -20,8 +21,12 @@ export default function Contact() {
   return (
     <Layout
       pageTitle="Contact Us"
-      pageDescription="Reach out to Anumaya Sansthan — we'd love to hear from you."
+      pageDescription="Reach out to MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN — we'd love to hear from you."
     >
+      <SEO
+        title="Contact Us"
+        description="Get in touch with MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN. Reach us at nirmalkumarsingh9625@gmail.com or visit our office in Patna, Bihar."
+      />
       <section className="py-16 md:py-24 bg-cream" data-ocid="contact.page">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-10 mb-16">
@@ -147,7 +152,10 @@ export default function Contact() {
                         Address
                       </p>
                       <p className="text-white/80 text-sm">
-                        Anumaya Sansthan, Patna, Bihar, India
+                        MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN, ANUPURI,
+                        VEER BASAWAN SINGH NAGAR, NEAR PATLIPUTRA RAILWAY
+                        STATION, B.V. College, Phulwari, Patna-800014, Bihar,
+                        India
                       </p>
                     </div>
                   </li>
@@ -157,7 +165,12 @@ export default function Contact() {
                       <p className="font-semibold text-light-green mb-0.5">
                         Phone
                       </p>
-                      <p className="text-white/80 text-sm">+91 XXXXXXXXXX</p>
+                      <a
+                        href="tel:+918210105075"
+                        className="text-white/80 text-sm hover:text-white transition-colors"
+                      >
+                        +91 8210105075
+                      </a>
                     </div>
                   </li>
                   <li className="flex gap-3">
@@ -167,10 +180,10 @@ export default function Contact() {
                         Email
                       </p>
                       <a
-                        href="mailto:contact@anumayasansthan.org"
+                        href="mailto:nirmalkumarsingh9625@gmail.com"
                         className="text-white/80 text-sm hover:text-white transition-colors"
                       >
-                        contact@anumayasansthan.org
+                        nirmalkumarsingh9625@gmail.com
                       </a>
                     </div>
                   </li>
@@ -206,7 +219,7 @@ export default function Contact() {
                 </h4>
                 <p className="text-sm text-muted-foreground">
                   <span className="font-medium text-foreground">
-                    Anumaya Sansthan
+                    MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN
                   </span>
                   <br />
                   Reg. No: S000071/23-24 | Est. 12.06.2023
@@ -224,13 +237,14 @@ export default function Contact() {
               <div className="text-center">
                 <div className="text-5xl mb-3">🗺️</div>
                 <p className="font-heading text-xl font-bold text-forest-green-900 mb-1">
-                  Anumaya Sansthan
+                  MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN
                 </p>
                 <p className="text-forest-green-700 text-sm">
-                  Patna, Bihar, India
+                  ANUPURI, VEER BASAWAN SINGH NAGAR, Phulwari, Patna-800014,
+                  Bihar, India
                 </p>
                 <a
-                  href="https://maps.google.com/?q=Patna,Bihar,India"
+                  href="https://maps.google.com/?q=ANUPURI,VEER+BASAWAN+SINGH+NAGAR,NEAR+PATLIPUTRA+RAILWAY+STATION,Phulwari,Patna-800014,Bihar,India"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block mt-3 bg-forest-green-800 text-white px-4 py-2 rounded-full text-xs font-semibold hover:bg-forest-green-900 transition-colors"

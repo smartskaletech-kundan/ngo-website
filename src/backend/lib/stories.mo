@@ -8,6 +8,7 @@ module {
     title : Text,
     beneficiaryName : Text,
     location : Text,
+    program : Text,
     storyText : Text,
     imageUrl : Text,
     date : Text,
@@ -17,6 +18,7 @@ module {
       title;
       beneficiaryName;
       location;
+      program;
       storyText;
       imageUrl;
       date;
@@ -30,6 +32,7 @@ module {
     title : Text,
     beneficiaryName : Text,
     location : Text,
+    program : Text,
     storyText : Text,
     imageUrl : Text,
     date : Text,
@@ -38,7 +41,7 @@ module {
     stories.mapInPlace(func(s) {
       if (s.id == id) {
         found := true;
-        { s with title; beneficiaryName; location; storyText; imageUrl; date };
+        { s with title; beneficiaryName; location; program; storyText; imageUrl; date };
       } else {
         s;
       };
@@ -62,5 +65,12 @@ module {
     stories : List.List<Types.SuccessStory>
   ) : [Types.SuccessStory] {
     stories.toArray();
+  };
+
+  public func listSuccessStoriesByProgram(
+    stories : List.List<Types.SuccessStory>,
+    programId : Text,
+  ) : [Types.SuccessStory] {
+    stories.filter(func(s : Types.SuccessStory) : Bool { s.program == programId }).toArray();
   };
 };

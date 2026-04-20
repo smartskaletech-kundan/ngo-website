@@ -9,9 +9,8 @@ import type { GalleryImage } from "../../types/content";
 
 const CATEGORIES = [
   "Plantation Drives",
-  "Waste Management",
-  "Awareness Campaigns",
-  "Events & Workshops",
+  "Soil Erosion Control",
+  "Community Development",
 ] as const;
 
 type Category = (typeof CATEGORIES)[number];
@@ -411,6 +410,31 @@ function AdminGalleryContent() {
 
   return (
     <div className="space-y-8" data-ocid="admin_gallery.page">
+      {/* Info Banner — Plantation Drive Placeholder */}
+      <div
+        className="flex items-start gap-3 rounded-2xl border border-forest-green-300 p-4 md:p-5"
+        style={{ backgroundColor: "#F1F8F1" }}
+        data-ocid="admin_gallery.placeholder_banner"
+      >
+        <span className="text-2xl flex-shrink-0 mt-0.5" aria-hidden="true">
+          📸
+        </span>
+        <div className="min-w-0">
+          <p className="font-body font-semibold text-forest-green-900 text-sm leading-snug mb-1">
+            Plantation Drive Photo Placeholder is Live
+          </p>
+          <p className="font-body text-forest-green-800 text-sm leading-relaxed">
+            A{" "}
+            <span className="font-semibold">
+              real plantation drive photo placeholder
+            </span>{" "}
+            is currently shown in the public gallery. Upload an actual
+            plantation drive photo below to replace it — once uploaded, the
+            placeholder will be replaced by your real photo.
+          </p>
+        </div>
+      </div>
+
       {/* Upload form */}
       <div
         className="bg-card rounded-2xl border border-border shadow-card p-6"

@@ -10,6 +10,7 @@ const EMPTY_FORM = {
   title: "",
   beneficiaryName: "",
   location: "",
+  program: "",
   storyText: "",
   imageUrl: "",
   date: new Date().toISOString().split("T")[0],
@@ -38,6 +39,7 @@ interface StoryFormData {
   title: string;
   beneficiaryName: string;
   location: string;
+  program: string;
   storyText: string;
   imageUrl: string;
   date: string;
@@ -125,6 +127,24 @@ function StoryForm({
         </div>
       </div>
       <div>
+        <label className={labelClass()} htmlFor="story-program">
+          Program
+        </label>
+        <select
+          id="story-program"
+          className={inputClass()}
+          value={form.program}
+          onChange={(e) => set("program", e.target.value)}
+          required
+          data-ocid="story.program.select"
+        >
+          <option value="">Select a program</option>
+          <option value="plantation-drives">Plantation Drives</option>
+          <option value="soil-erosion-control">Soil Erosion Control</option>
+          <option value="community-development">Community Development</option>
+        </select>
+      </div>
+      <div>
         <label className={labelClass()} htmlFor="story-text">
           Story Text
         </label>
@@ -195,6 +215,7 @@ export default function AdminStories() {
         data.title,
         data.beneficiaryName,
         data.location,
+        data.program,
         data.storyText,
         data.imageUrl,
         data.date,
@@ -214,6 +235,7 @@ export default function AdminStories() {
         data.title,
         data.beneficiaryName,
         data.location,
+        data.program,
         data.storyText,
         data.imageUrl,
         data.date,
@@ -400,6 +422,7 @@ export default function AdminStories() {
                     title: editStory.title,
                     beneficiaryName: editStory.beneficiaryName,
                     location: editStory.location,
+                    program: editStory.program,
                     storyText: editStory.storyText,
                     imageUrl: editStory.imageUrl,
                     date: editStory.date,

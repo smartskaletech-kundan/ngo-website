@@ -9,7 +9,7 @@ import AdminLayout from "../../components/AdminLayout";
 const EVENT_CATEGORIES = [
   "Plantation",
   "Workshop",
-  "Waste Management",
+  "Health Camp",
   "Awareness",
   "Community",
 ];

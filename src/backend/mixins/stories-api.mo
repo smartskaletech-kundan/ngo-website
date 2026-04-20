@@ -1,7 +1,6 @@
 import Types "../types/common";
 import StoriesLib "../lib/stories";
 import List "mo:core/List";
-import Principal "mo:core/Principal";
 import Runtime "mo:core/Runtime";
 
 mixin (
@@ -14,6 +13,7 @@ mixin (
     title : Text,
     beneficiaryName : Text,
     location : Text,
+    program : Text,
     storyText : Text,
     imageUrl : Text,
     date : Text,
@@ -23,7 +23,7 @@ mixin (
     };
     let id = storyIdRef.at(0);
     storyIdRef.put(0, id + 1);
-    StoriesLib.addSuccessStory(successStories, id, title, beneficiaryName, location, storyText, imageUrl, date);
+    StoriesLib.addSuccessStory(successStories, id, title, beneficiaryName, location, program, storyText, imageUrl, date);
   };
 
   // Admin only
@@ -32,6 +32,7 @@ mixin (
     title : Text,
     beneficiaryName : Text,
     location : Text,
+    program : Text,
     storyText : Text,
     imageUrl : Text,
     date : Text,
@@ -39,7 +40,7 @@ mixin (
     if (not caller.isController()) {
       Runtime.trap("Unauthorized: admin only");
     };
-    StoriesLib.updateSuccessStory(successStories, id, title, beneficiaryName, location, storyText, imageUrl, date);
+    StoriesLib.updateSuccessStory(successStories, id, title, beneficiaryName, location, program, storyText, imageUrl, date);
   };
 
   // Admin only
@@ -53,5 +54,10 @@ mixin (
   // Public
   public query func listSuccessStories() : async [Types.SuccessStory] {
     StoriesLib.listSuccessStories(successStories);
+  };
+
+  // Public — filter by program id (plantation-drives | soil-erosion-control | community-development)
+  public query func listSuccessStoriesByProgram(programId : Text) : async [Types.SuccessStory] {
+    StoriesLib.listSuccessStoriesByProgram(successStories, programId);
   };
 };

@@ -1,16 +1,22 @@
 import Layout from "../components/Layout";
+import SEO from "../components/SEO";
 
 export default function PrivacyPolicy() {
   return (
     <Layout
       pageTitle="Privacy Policy"
-      pageDescription="How Anumaya Sansthan collects, uses, and protects your information."
+      pageDescription="How MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN collects, uses, and protects your information."
     >
+      <SEO
+        title="Privacy Policy"
+        description="Privacy policy of MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN — how we collect, use, and protect your personal information."
+      />
       <article className="py-16 md:py-24 bg-cream" data-ocid="privacy.page">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 prose prose-sm md:prose-base max-w-none">
           <div className="bg-card rounded-card shadow-card p-8 md:p-12">
             <p className="text-muted-foreground text-sm mb-8">
-              Last updated: June 2024 | Anumaya Sansthan (Reg. S000071/23-24)
+              Last updated: June 2024 | MAYA SAMAJIK UTTHAN EVAM PARAMARSH
+              SANSTHAN (Reg. S000071/23-24)
             </p>
 
             <h2 className="font-heading text-2xl font-bold text-forest-green-900 mb-4">
@@ -66,10 +72,10 @@ export default function PrivacyPolicy() {
               You may request access to, correction of, or deletion of your
               personal data at any time. To exercise these rights, contact us at{" "}
               <a
-                href="mailto:contact@anumayasansthan.org"
+                href="mailto:nirmalkumarsingh9625@gmail.com"
                 className="text-forest-green-700 underline"
               >
-                contact@anumayasansthan.org
+                nirmalkumarsingh9625@gmail.com
               </a>
               .
             </p>
@@ -86,14 +92,16 @@ export default function PrivacyPolicy() {
               7. Contact for Privacy Queries
             </h2>
             <p className="text-foreground/75 leading-relaxed">
-              Anumaya Sansthan, Patna, Bihar, India
+              MAYA SAMAJIK UTTHAN EVAM PARAMARSH SANSTHAN, ANUPURI, VEER BASAWAN
+              SINGH NAGAR, NEAR PATLIPUTRA RAILWAY STATION, B.V. College,
+              Phulwari, Patna-800014, Bihar, India
               <br />
               Email:{" "}
               <a
-                href="mailto:contact@anumayasansthan.org"
+                href="mailto:nirmalkumarsingh9625@gmail.com"
                 className="text-forest-green-700 underline"
               >
-                contact@anumayasansthan.org
+                nirmalkumarsingh9625@gmail.com
               </a>
             </p>
           </div>

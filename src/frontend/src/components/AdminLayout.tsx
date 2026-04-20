@@ -4,6 +4,7 @@ import {
   CalendarDays,
   Images,
   LayoutDashboard,
+  Leaf,
   LogOut,
   Menu,
   NewspaperIcon,
@@ -19,6 +20,7 @@ const ADMIN_BASE = "/xn--manage-anumaya-81h";
 
 const navItems = [
   { label: "Dashboard", to: ADMIN_BASE, icon: LayoutDashboard },
+  { label: "Programs", to: `${ADMIN_BASE}/programs`, icon: Leaf },
   { label: "Gallery", to: `${ADMIN_BASE}/gallery`, icon: Images },
   { label: "Blog", to: `${ADMIN_BASE}/blog`, icon: NewspaperIcon },
   { label: "Events", to: `${ADMIN_BASE}/events`, icon: CalendarDays },
@@ -28,35 +30,11 @@ const navItems = [
 
 function LeafLogo() {
   return (
-    <svg
-      width="28"
-      height="28"
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        d="M16 4C16 4 6 8 6 18C6 23.523 10.477 28 16 28C21.523 28 26 23.523 26 18C26 8 16 4 16 4Z"
-        fill="white"
-        fillOpacity="0.9"
-      />
-      <path
-        d="M16 4C16 4 6 8 6 18"
-        stroke="white"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <line
-        x1="16"
-        y1="14"
-        x2="16"
-        y2="28"
-        stroke="#2E7D32"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
+    <img
+      src="/assets/maya-logo.jpeg"
+      alt="Maya Vasudha NGO Logo"
+      className="w-9 h-9 rounded-full object-cover flex-shrink-0 ring-2 ring-white/40 shadow-sm"
+    />
   );
 }
 
